@@ -1,19 +1,21 @@
-import Product from "../models/product.js";
+import Address from "../models/address.js";
 import sequelize from "sequelize";
-const productController = {
-    async createProduct(req, res) {
+
+
+const adressController = {
+    async createAdress(req, res) {
         try {
-            const { name, description, price, image, categoryId } = req.body;
-            const product = await Product.create({
-                name,
-                description,
-                price,
-                image,
-                categoryId
+            const { userId, adress, street, complement, reference } = req.body;
+            const new_adress = await Address.create({
+                userId,
+                adress,
+                street,
+                complement,
+                reference
             });
             return res.status(201).json({
                 success: true,
-                product
+                new_adress
             });
         } catch (error) {
             return res.status(500).json({
@@ -22,12 +24,13 @@ const productController = {
             });
         }
     },
-    async getProducts(req, res) {
+    async getAddress(req, res) {
+        
         try {
-            const products = await Product.findAll();
+            const adress = await Address.findAll();
             return res.status(200).json({
                 success: true,
-                products
+                adress
             });
         } catch (error) {
             return res.status(500).json({
@@ -39,4 +42,4 @@ const productController = {
     
 }
 
-export default productController;
+export default addressController;
