@@ -1,4 +1,4 @@
-import Product from "../models/product";
+import Product from "../models/product.js";
 import sequelize from "sequelize";
 const productController = {
 //     async createProduct(req, res) {
