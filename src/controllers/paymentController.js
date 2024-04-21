@@ -35,5 +35,21 @@ const paymentController = {
             });
         }
     },
+    getPaymentStatus: async(req, res) => {
+        try {
+            const payments = await Payment.findAll();
+            return res.status(200).json({
+                success: true,
+                payments
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+    
 
 }
+export default paymentController;
