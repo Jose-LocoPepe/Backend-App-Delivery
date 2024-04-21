@@ -40,6 +40,6 @@ const adressController = {
         }
     },
     
-}
+};
 
 export default addressController;

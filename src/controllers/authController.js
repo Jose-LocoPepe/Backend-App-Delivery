@@ -2,12 +2,19 @@ const { request, response } = require("express");
 const bcryptjs = require("bcryptjs");
 
 // Models
-const User = require("../models/user");
-const Rol = require("../models/rol");
+const User = require("../models/user.js");
+const Rol = require("../models/rol.js");
 
 // Generate token
 const generateJWT = require('../helpers/generate-jws');
 
+/**
+ * Logs in a user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
