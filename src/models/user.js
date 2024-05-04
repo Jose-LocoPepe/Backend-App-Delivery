@@ -4,11 +4,11 @@ const dbConnect = require('../database/connection');
 class User extends Model {
     static id;
     static name;
-    static lastnames;
+    static lastname;
     static email;
     static phone;
     static password;
-    static image;
+    static imagen;
 }
 
 User.init({
@@ -16,7 +16,7 @@ User.init({
     name: {
         type: DataTypes.STRING
     },
-    lastnames: {
+    lastname: {
         type: DataTypes.STRING
     },
     email: {
@@ -29,7 +29,7 @@ User.init({
     password: {
         type: DataTypes.STRING
     },
-    image: {
+    imagen: {
         type: DataTypes.STRING,
         allowNull: true
     }
@@ -37,7 +37,7 @@ User.init({
     sequelize: dbConnect,
     modelName: 'User'
 });
-User.Role = User.belongsTo(require ('./role'), {foreignKey: 'role_id'});
+User.Rol = User.belongsTo(require ('./rol'), {foreignKey: 'rol_id'});
 
 User.prototype.toJSON = function () {
     const user = this.get();
@@ -45,8 +45,8 @@ User.prototype.toJSON = function () {
 
     // Elimina la contraseña del objeto
     delete user.password;
-    // incluimos el atributo role_id
-    user.role_id = this.getDataValue('role_id');
+    // incluimos el atributo rol_id
+    user.rol_id = this.getDataValue('rol_id');
     return user;
 }
 

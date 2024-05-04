@@ -1,5 +1,5 @@
 /*
-id,user_id,name,street,neighborhood,longitude,latitude
+id,user_id,adress,street,complement,reference
 */
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection.js');
@@ -7,11 +7,10 @@ const dbConnect = require('../database/connection.js');
 class Address extends Model {
     static id;
     static userId;
-    static name;
+    static address;
     static street;
-    static neighborhood;
-    static longitude;
-    static latitude;
+    static complement;
+    static reference;
 }
 
 Address.init({
@@ -24,7 +23,7 @@ Address.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    name: {
+    adress: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -32,21 +31,17 @@ Address.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    neighborhood: {
+    complement: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    longitude: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    latitude: {
+    reference: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Address'
+    modelName: 'Adress'
 });
 
 module.exports = Address;

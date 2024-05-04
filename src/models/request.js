@@ -1,44 +1,45 @@
+/*id, client_id, adress_id, request_date, status, total_price*/
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class Product extends Model {
+class Request extends Model {
     static id;
-    static name;
-    static description;
-    static price;
-    static image;
-    static categoryId;
+    static clientId;
+    static adressId;
+    static requestDate;
+    static status;
+    static totalPrice;
 }
 
-Product.init({
+Request.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
+    clientId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    adressId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    requestDate: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    status: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    description: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    price: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    image: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    categoryId: {
+    totalPrice: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Product'
+    modelName: 'Request'
 });
 
-module.exports = Product;
+module.exports = Request;
