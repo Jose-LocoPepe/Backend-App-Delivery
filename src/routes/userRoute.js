@@ -2,7 +2,7 @@ const { Router, request, response, next } = require("express");
 const { check } = require("express-validator");
 
 //Controllers
-const UserController = require("../controllers/userController");
+//const UserController = require("../controllers/userController");
 
 // Middlewares
 const { validateFields } = require("../middlewares/validate-fields");

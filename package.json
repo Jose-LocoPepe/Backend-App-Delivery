@@ -24,5 +24,8 @@
         "mysql2": "^3.9.3",
         "sequelize": "^6.37.3",
         "sequelize-cli": "^6.6.2"
+    },
+    "devDependencies": {
+        "@faker-js/faker": "^8.4.1"
     }
 }
