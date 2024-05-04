@@ -1,12 +1,12 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class Rol extends Model {
+class Role extends Model {
     static id;
     static name;
 }
 
-Rol.init({
+Role.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -18,7 +18,7 @@ Rol.init({
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Rol'
+    modelName: 'Role'
 });
 
-module.exports = Rol;
+module.exports = Role;

@@ -6,7 +6,6 @@ class Product extends Model {
     static name;
     static description;
     static price;
-    static image;
     static categoryId;
 }
 
@@ -25,10 +24,6 @@ Product.init({
         allowNull: false
     },
     price: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    image: {
         type: DataTypes.STRING,
         allowNull: false
     },

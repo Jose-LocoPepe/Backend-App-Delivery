@@ -1,18 +1,17 @@
-/*request_id, product_id, quantity */
+/*orderId, product_id, quantity */
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class RequestDetails extends Model {
-    static requestId;
+class OrderDetails extends Model {
+    static orderId;
     static productId;
     static quantity;
 }
 
-RequestDetails.init({
-    requestId: {
+OrderDetails.init({
+    orderId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
     },
     productId: {
         type: DataTypes.INTEGER,
@@ -24,7 +23,7 @@ RequestDetails.init({
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'RequestDetails'
+    modelName: 'OrderDetails'
 });
 
-module.exports = RequestDetails;
+module.exports = OrderDetails;

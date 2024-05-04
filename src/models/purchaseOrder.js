@@ -1,19 +1,20 @@
 /*
-id,client_id,adress_id,request_date,status,totalPrice
+id,client_id,address_id,request_date,status,totalPrice
 */
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class Payment extends Model {
+class PurchaseOrder extends Model {
     static id;
     static clientId;
-    static adressId;
-    static requestDate;
+    static addressId;
+    static date;
     static status;
     static totalPrice;
+    static deliveryId;
 }
 
-Payment.init({
+PurchaseOrder.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -23,11 +24,11 @@ Payment.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    adressId: {
+    addressId: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    requestDate: {
+    date: {
         type: DataTypes.DATE,
         allowNull: false
     },
@@ -38,10 +39,14 @@ Payment.init({
     totalPrice: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    deliveryId: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Payment'
+    modelName: 'PurchaseOrder'
 });
 
-module.exports = Payment;
+module.exports = PurchaseOrder;
