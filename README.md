@@ -66,7 +66,7 @@ Ahora levantamos el proyecto con el comando:
 ```bash
 nodemon src/app
 ```
-Si no puede utilizar ese comando, utilize este:
+Si no puede utilizar ese comando, utilice este:
 ```bash
 node src/app
 ```
