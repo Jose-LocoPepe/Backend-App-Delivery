@@ -2,17 +2,17 @@
 <br />
 <div align="center">
   <a href="https://google.cl">
-    <img src="https://i.imgur.com/aFXNOwu.png" alt="Logo" >
+    <img src="https://i.imgur.com/PcEE9Go.png" alt="Logo" >
   </a>
 
-  <h3 align="center">Sabor Veloz - Maestros Solucionadores.</h3>
+  <h3 align="center">Vuelta al menu en 365 platos - Maestros Solucionadores.</h3>
 
   <p align="center">
-    Aplicación de delivery "Sabor Veloz".
+    Aplicación de delivery "Vuelta al menu en 365 platos".
   </p>
 </div>
 
-# Backend - Aplicacion de delivery "Sabor Veloz"
+# Backend - Aplicacion de delivery "Vuelta al menu en 365 platos"
 
 Esta aplicación es un proyecto para el ramo de "Desarrollo de soluciones móviles" del 1°Semestre 2024. 
 

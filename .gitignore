@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # macOS
 .DS_Store
 
@@ -10,7 +9,3 @@
 .DS_Store
 node_modules/
 .env
-=======
-.*.sw[mnop]
-node_modules/
->>>>>>> c8894201164f6ababcd0b9122ed2ed2193653d87
