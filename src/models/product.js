@@ -7,7 +7,6 @@ class Product extends Model {
     static description;
     static price;
     static image;
-    static categoryId;
 }
 
 Product.init({
@@ -32,13 +31,11 @@ Product.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    categoryId: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
+
 }, {
     sequelize: dbConnect,
     modelName: 'Product'
 });
+Product.Category = Product.belongsTo(require ('./category'), {foreignKey: 'categoryid'});
 
 module.exports = Product;

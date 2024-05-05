@@ -14,7 +14,15 @@ module.exports = {
         allowNull: false,
         unique: true,
         type: Sequelize.STRING
-      }
+      },
+      productid: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Products',
+          key: 'id'
+        }
+      },
       
     });
   },
