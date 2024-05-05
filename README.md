@@ -28,10 +28,6 @@ Como extra, el [Nodemon](https://www.npmjs.com/package/nodemon) para verificar e
 ## Instalacion inicial 💿
 El proyecto esta hecho en base a [NODE.JS](https://nodejs.org/en), es necesario instalar este entorno de programación.
 
-Es necesario tener instaladas estas librerías:
-```bash
-npm install bcrypjs cors dotenv express express-validator express-fileupload jsonwebtoken morgan mysql sequelize sequelize-cli
-```
 
 Instalar Nodemon de manera global:
 ```bash
@@ -68,9 +64,12 @@ DB_PASSWORD = Es la contraseña que nosotros asignamos en la instalación, en ca
 
 Ahora levantamos el proyecto con el comando:
 ```bash
-nodemon app
+nodemon src/app
 ```
-
+Si no puede utilizar ese comando, utilize este:
+```bash
+node src/app
+```
 
 ## Base de datos 📈
 
