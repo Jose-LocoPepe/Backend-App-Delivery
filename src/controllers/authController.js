@@ -58,11 +58,23 @@ const login = async (req, res) => {
     }
 }
 
+
 const register = async (req = request, res = response) => {
     try {
         const Userdata = req.body;
+    
         // Obtenemos el rol del user
+
+        
+       
         const rol = await Rol.findOne({ where: { name: 'CLIENTE' } });
+        if (!rol) {
+            return res.status(404).json({
+                success: false,
+                message: "Rol no encontrado"
+            });
+        }
+
         Userdata['rol_id'] = rol.id;
 
         // crea el user en la base de datos
@@ -78,7 +90,9 @@ const register = async (req = request, res = response) => {
 
         });
     } catch (error) {
+        console.error('Registration error:', error);
         return res.status(500).json({
+            
             success: false,
             message: "Error al intentar crear el usuario"
         });

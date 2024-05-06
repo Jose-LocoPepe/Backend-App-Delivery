@@ -4,6 +4,7 @@ const logger = require('morgan');
 const dbConnect = require('../database/connection');
 const User = require('../models/user');
 const Rol = require('../models/rol');
+const fileUpload = require('express-fileupload');
 
 class Server {
     constructor() {
@@ -14,7 +15,8 @@ class Server {
         this.paths = {
             auth: '/api/auth',
             user: '/api/user',
-            rol: '/api/rol'
+            rol: '/api/rol',
+            upload: '/api/upload'
         }
 
         // Método para conectar con la base de datos
@@ -25,6 +27,7 @@ class Server {
         
         // Metodo para configurar las rutas
         this.routes();
+
     }
 
     // Método para conectar con la base de datos
@@ -52,11 +55,19 @@ class Server {
 
         // CORS
         this.app.use(cors());
+
+        // Carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true,
+        }));
     }
 
     routes() {
         this.app.use(this.paths.auth, require('../routes/authRoute'));
         this.app.use(this.paths.user, require('../routes/userRoute'));
+        this.app.use(this.paths.upload, require('../routes/uploadRoute'));
     }
 
     listen() {
