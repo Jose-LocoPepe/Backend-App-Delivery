@@ -2,7 +2,7 @@ const { Router, request, response, next } = require('express');
 const { check } = require('express-validator');
 
 //Controllers
-const { register, login } = require('../controllers/authController');
+const { register, login, validateToken } = require('../controllers/authController');
 
 // Middlewares
 const { validateFields } = require('../middlewares/validate-fields');
@@ -26,5 +26,7 @@ router.post('/register', [
     check('password', 'La contraseña es requerida').not().isEmpty(),
     validateFields
 ], register);
+
+router.get('/validate-token', validateToken);
 
 module.exports = router;

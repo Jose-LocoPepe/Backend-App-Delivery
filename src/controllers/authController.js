@@ -34,6 +34,7 @@ const login = async (req, res) => {
         }
         const token = await generateJWT(user.id);
         const Userdata = {
+            id: user.id,
             name: user.name,
             lastname: user.lastname,
             email: user.email,
@@ -64,8 +65,6 @@ const register = async (req = request, res = response) => {
         const Userdata = req.body;
     
         // Obtenemos el rol del user
-
-        
        
         const rol = await Rol.findOne({ where: { name: 'CLIENTE' } });
         if (!rol) {
@@ -83,9 +82,12 @@ const register = async (req = request, res = response) => {
         user.password = bcryptjs.hashSync(Userdata.password, salt);
 
         await user.save();
+        const token = await generateJWT(user.id);
+        const { id, name, lastname, email, phone, imagen, rol_id } = user;
+        const dataUser = { id, name, lastname, email, phone, imagen, rol_id, token };
         return res.status(200).json({
             success: true,
-            data: Userdata,
+            data: dataUser,
             message: `Usuario registrado correctamente`
 
         });
@@ -99,6 +101,57 @@ const register = async (req = request, res = response) => {
         
     }
 }
+const validateToken = async (req = request, res = response) => {
+    const authHeader = req.headers['authorization'];
 
+    // Separate the token from the "Bearer" prefix
+    token = authHeader && authHeader.split(' ')[1];
 
-module.exports = { register, login };
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: 'Not in token'
+        });
+    }
+
+    try {
+        const {id} = jwt.verify(token, process.env.SECRET_OR_PRIVATE_KEY);
+
+        const user = await User.findByPk(id);
+
+        const {
+            name,
+            lastname,
+            phone,
+            email,
+            image,
+            role_id
+        } = user;
+
+        const dataUser = { id, name, lastname, phone, email, image, role_id, session_token: token };
+
+        if (user) {
+            return res.status(200).json({
+                success: true,
+                message: 'Token is valid',
+                data: dataUser
+            })
+        }
+    } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({
+                success: false,
+                message: 'Token expired',
+                expired: true,
+                error
+            });
+        }
+        return res.status(401).json({
+            success: false,
+            message: 'Invalid token',
+            error
+        });
+    }
+}
+
+module.exports = { register, login, validateToken };

@@ -6,6 +6,7 @@ const { check } = require("express-validator");
 
 // Middlewares
 const { validateFields } = require("../middlewares/validate-fields");
+const { putUser } = require("../controllers/userController");
 
 const router = Router();
 
@@ -19,5 +20,12 @@ router.get("/", async (req, res) => {
         res.status(500).json(error);
     }
 });
+
+router.put('/:id',[
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('lastname', 'El apellido es obligatorio').not().isEmpty(),
+    check('phone', 'El telefono es obligatorio').not().isEmpty(),
+    validateFields
+],putUser)
 
 module.exports = router;
