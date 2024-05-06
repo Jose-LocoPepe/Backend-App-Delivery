@@ -20,7 +20,7 @@ Esta aplicación es un proyecto para el ramo de "Desarrollo de soluciones móvil
 ## Tecnologías Utilizadas 🖥️
 - [Node](https://nodejs.org/en/download/current)
 - Express
-- [MySQL](https://dev.mysql.com/downloads/installer/)
+- [MySQL Workbench](https://dev.mysql.com/downloads/installer/)
 - Sequelize
 
 Como extra, el [Nodemon](https://www.npmjs.com/package/nodemon) para verificar errores a detalles en consola.
@@ -56,9 +56,10 @@ npm install
 
 Cambiamos los siguientes parámetros en el .env con las variables de entorno de la base de datos:
 ```bash
+PORT = El puerto donde va a correr el servidor.
 DB_PORT = Depende del puerto asignado por usted en la configuración de su base de datos(default: 3306)
-DB_DATABASE = Aquí va el nombre de la base de datos creada en nuestro administrador de base de datos preferido.
-DB_USERNAME = root
+DB_DATABASE = Aquí va el nombre de la base de datos creada en nuestro administrador de base de datos preferido (Ej: MySQL Workbench).
+DB_USERNAME = El nombre de usuario que utiliza para 
 DB_PASSWORD = Es la contraseña que nosotros asignamos en la instalación, en caso de utilizar Xampp, Laragon, etc... Este campo se debe dejar vacío.
 ```
 
@@ -74,6 +75,36 @@ node src/app
 ## Base de datos 📈
 
 El Query inicial de instalacion de la base de datos, se encuentran dentro de de la carpeta database.
+
+
+### Execute Migrations:
+```bash
+sequelize db:migrate
+# o utilizar
+npx sequelize db:migrate
+```
+
+### Revert All Migrations:
+```bash
+sequelize db:migrate:undo:all
+# o utilizar
+npx sequelize db:migrate:undo:all
+```
+
+
+### Execute Seeders:
+```bash
+sequelize db:seed:all
+# o utilizar
+npx sequelize db:seed:all
+```
+
+### Revert All Seeders:
+```bash
+sequelize db:seed:undo:all
+# o utilizar
+npx sequelize db:seed:undo:all
+```
 
 ## Versionado 📌
 
