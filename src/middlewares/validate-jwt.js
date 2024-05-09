@@ -7,8 +7,8 @@ const User = require("../models/user");
 const validateJWT = async (req = request, res = response, next) => {
     const authHeader = req.headers['authorization'];
 
-    // Separate the token from "Bearer" prefix
     const token = authHeader && authHeader.split(' ')[1];
+    console.log(token);
 
     if (!token) {
         return res.status(401).json({

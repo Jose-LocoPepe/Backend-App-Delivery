@@ -62,6 +62,8 @@ DB_DATABASE = Aquí va el nombre de la base de datos creada en nuestro administr
 DB_USERNAME = El nombre de usuario que utiliza para 
 DB_PASSWORD = Es la contraseña que nosotros asignamos en la instalación, en caso de utilizar Xampp, Laragon, etc... Este campo se debe dejar vacío.
 ```
+Para obtener el "SECRET_OR_PRIVATE_KEY", puede copiar cualquiera de este generador de contraseñas hexadecimales:
+[Generador Contraseñas](https://codepen.io/EightArmsHQ/pen/mrXXKj)
 
 Ahora levantamos el proyecto con el comando:
 ```bash

@@ -8,6 +8,8 @@ const Rol = require("../models/rol.js");
 // Generate token
 const generateJWT = require('../helpers/generate-jws');
 
+const jwt = require("jsonwebtoken");
+
 /**
  * Logs in a user.
  *
@@ -23,12 +25,14 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: "El usuario no existe"
+                error: true,
+                message: "Credenciales incorrecta"
             });
         }
         if (!bcryptjs.compareSync(password, user.password)) {
             return res.status(400).json({
                 success: false,
+                error: true,
                 message: "Credenciales incorrecta"
             });
         }
@@ -113,8 +117,10 @@ const validateToken = async (req = request, res = response) => {
             message: 'Not in token'
         });
     }
+    
 
     try {
+        
         const {id} = jwt.verify(token, process.env.SECRET_OR_PRIVATE_KEY);
 
         const user = await User.findByPk(id);
@@ -129,26 +135,27 @@ const validateToken = async (req = request, res = response) => {
         } = user;
 
         const dataUser = { id, name, lastname, phone, email, image, role_id, session_token: token };
-
+        
         if (user) {
             return res.status(200).json({
                 success: true,
-                message: 'Token is valid',
+                message: 'Token es valido',
                 data: dataUser
             })
         }
     } catch (error) {
+        console.log(error);
         if (error.name === 'TokenExpiredError') {
             return res.status(401).json({
                 success: false,
-                message: 'Token expired',
+                message: 'Token expirado',
                 expired: true,
                 error
             });
         }
         return res.status(401).json({
             success: false,
-            message: 'Invalid token',
+            message: 'Token Invalido',
             error
         });
     }
