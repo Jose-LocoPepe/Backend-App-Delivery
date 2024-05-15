@@ -38,7 +38,7 @@ const getProducts = async(req = request, res = response) => {
             });
         }
     }
-    
+
 
 
 module.exports = { createProduct, getProducts }

@@ -1,5 +1,6 @@
 const { Router, request, response, next } = require("express");
 const { check } = require("express-validator");
+const ProductController = require("../controllers/productController")
 
 //Controllers
 //const UserController = require("../controllers/userController");
@@ -27,5 +28,7 @@ router.put('/:id',[
     check('phone', 'El telefono es obligatorio').not().isEmpty(),
     validateFields
 ],putUser)
+
+router.get('/getProducts',ProductController.getProducts);
 
 module.exports = router;
