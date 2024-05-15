@@ -62,6 +62,8 @@ const login = async (req, res) => {
         });
     }
 }
+
+
 const register = async (req = request, res = response) => {
     try {
         const Userdata = req.body;
