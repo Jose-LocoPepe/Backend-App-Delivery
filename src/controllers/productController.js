@@ -1,7 +1,9 @@
-import Product from "../models/product.js";
-import sequelize from "sequelize";
-const productController = {
-    async createProduct(req, res) {
+const { request, response } = require("express");
+
+// Models
+const Product = require("../models/product")
+
+const createProduct = async (req = request, res = response) => {
         try {
             const { name, description, price, image, categoryId } = req.body;
             const product = await Product.create({
@@ -21,8 +23,8 @@ const productController = {
                 message: error.message
             });
         }
-    },
-    async getProducts(req, res) {
+    }
+const getProducts = async(req = request, res = response) => {
         try {
             const products = await Product.findAll();
             return res.status(200).json({
@@ -35,8 +37,8 @@ const productController = {
                 message: error.message
             });
         }
-    },
+    }
     
-}
 
-export default productController;
+
+module.exports = { createProduct, getProducts }
