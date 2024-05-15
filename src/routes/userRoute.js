@@ -7,7 +7,8 @@ const { check } = require("express-validator");
 // Middlewares
 const { validateFields } = require("../middlewares/validate-fields");
 const { putUser } = require("../controllers/userController");
-
+const productController = require("../controllers/productController");
+const categoryController = require("../controllers/categoryController");
 const router = Router();
 
 // ** GETS ** //
@@ -20,6 +21,9 @@ router.get("/", async (req, res) => {
         res.status(500).json(error);
     }
 });
+
+router.get("/getProducts", productController.getProducts);
+router.get("/getCategory", categoryController.getCategory);
 
 router.put('/:id',[
     check('name', 'El nombre es obligatorio').not().isEmpty(),

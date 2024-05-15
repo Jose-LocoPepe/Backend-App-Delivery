@@ -1,5 +1,7 @@
-import Product from "../models/product.js";
-import sequelize from "sequelize";
+//import Product from "../models/product.js";
+//import sequelize from "sequelize";
+const sequelize = require('sequelize');
+const Product = require('../models/product.js');
 const productController = {
     async createProduct(req, res) {
         try {
@@ -39,4 +41,4 @@ const productController = {
     
 }
 
-export default productController;
+module.exports = productController;

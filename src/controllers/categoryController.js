@@ -1,8 +1,9 @@
-import { Category } from '../models/categoryModel.js';
-import { request, response } from 'express';
-import sequelize from 'sequelize';
+const Category = require('../models/category');
+
+const { request, response } = require("express");
+const sequelize = require('sequelize');
 categoryController = {
-    createCategory: async(req = request, res = response) => {
+    async createCategory(req, res) {
     try {
             const { name, description, image } = req.body;
             const category = await Category.create({
@@ -21,7 +22,7 @@ categoryController = {
             });
         }
     },
-    getCategory: async(req = request, res = response) => {
+   async getCategory(req, res) {
         try {
             const categories = await Category.findAll();
             return res.status(200).json({
@@ -35,7 +36,7 @@ categoryController = {
             });
         }
     },
-    deleteCategory: async(req = request, res = response) => {
+   async updateCategory(req, res) {
         try {
             const { id } = req.params;
             const category = await Category.destroy({
@@ -56,4 +57,4 @@ categoryController = {
     }
 }
 
-export default categoryController;
+module.exports = categoryController;
