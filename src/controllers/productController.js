@@ -5,12 +5,11 @@ const Product = require("../models/product")
 
 const createProduct = async (req = request, res = response) => {
         try {
-            const { name, description, price, image, categoryId } = req.body;
+            const { name, description, price, categoryId } = req.body;
             const product = await Product.create({
                 name,
                 description,
                 price,
-                image,
                 categoryId
             });
             return res.status(201).json({
