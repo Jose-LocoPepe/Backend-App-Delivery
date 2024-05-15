@@ -1,5 +1,11 @@
 import { Category } from '../models/categoryModel.js';
-import { request, response } from 'express';
+//import { request, response } from 'express';
+
+const { request, response } = require("express");
+
+// Models
+const Category = require("../models/category")
+
 import sequelize from 'sequelize';
 categoryController = {
     createCategory: async(req = request, res = response) => {
@@ -56,4 +62,5 @@ categoryController = {
     }
 }
 
-export default categoryController;
+//module.exports = { createCategory, getCategory, deleteCategory }
+module.exports = categoryController
