@@ -1,4 +1,5 @@
 const { request, response } = require("express");
+const bcryptjs = require("bcryptjs");
 
 const User = require("../models/user");
 
@@ -23,10 +24,9 @@ const putUser = async (req = request, res = response) => {
 
 
 const changePassword = async (req = request, res = response) => {
-    const { id } = req.params;
-    const { newPassword } = req.body;
-
     try {
+        const { id } = req.params;
+        const { currentPassword, newPassword } = req.body;
         const user = await User.findOne({ where: { id: id } });
 
         if (!user) {
@@ -36,7 +36,19 @@ const changePassword = async (req = request, res = response) => {
             });
         }
 
-        user.password = newPassword; // Asegúrate de que la contraseña esté siendo hasheada antes de guardarla.
+        if (!bcryptjs.compareSync(currentPassword, user.password)) {
+            return res.status(400).json({
+                success: false,
+                error: true,
+                message: "Credencial incorrecta"
+            });
+        }
+
+        // Encriptamos la nueva contraseña
+        const salt = bcryptjs.genSaltSync(10);
+        user.password = bcryptjs.hashSync(newPassword, salt);
+
+        // Guardamos el usuario con la nueva contraseña
         await user.save();
 
         return res.status(200).json({
