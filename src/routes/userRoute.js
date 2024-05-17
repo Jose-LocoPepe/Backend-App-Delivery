@@ -31,6 +31,7 @@ router.put('/:id',[
 ],putUser)
 
 router.get('/getProducts',ProductController.getProducts);
+router.post('/createProduct',ProductController.createProduct);
 router.get('/getCategory', CategoryController.getCategory);
 
 module.exports = router;
