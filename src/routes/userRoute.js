@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 const ProductController = require("../controllers/productController")
 const CategoryController = require("../controllers/categoryController")
 
+
 //Controllers
 //const UserController = require("../controllers/userController");
 
@@ -32,6 +33,8 @@ router.put('/:id',[
 
 router.get('/getProducts',ProductController.getProducts);
 router.post('/createProduct',ProductController.createProduct);
+router.get('/getPictures',ProductController.getPictures);
 router.get('/getCategory', CategoryController.getCategory);
 
 module.exports = router;
+
