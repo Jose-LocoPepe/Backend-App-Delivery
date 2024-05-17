@@ -33,6 +33,7 @@ router.put('/:id',[
 
 router.get('/getProducts',ProductController.getProducts);
 router.post('/createProduct',ProductController.createProduct);
+router.get('/getPictures',ProductController.getPictures);
 router.get('/getCategory', CategoryController.getCategory);
 
 module.exports = router;
