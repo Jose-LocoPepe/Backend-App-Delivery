@@ -1,5 +1,7 @@
 const { Router, request, response, next } = require("express");
 const { check } = require("express-validator");
+const ProductController = require("../controllers/productController")
+const CategoryController = require("../controllers/categoryController")
 
 //Controllers
 //const UserController = require("../controllers/userController");
@@ -11,7 +13,7 @@ const productController = require("../controllers/productController");
 const categoryController = require("../controllers/categoryController");
 const router = Router();
 
-// ** GETS ** //
+//  GETS  //
 
 router.get("/", async (req, res) => {
     try {
@@ -34,5 +36,8 @@ router.put('/:id',[
     check('phone', 'El telefono es obligatorio').not().isEmpty(),
     validateFields
 ],putUser)
+
+router.get('/getProducts',ProductController.getProducts);
+router.get('/getCategory', CategoryController.getCategory);
 
 module.exports = router;

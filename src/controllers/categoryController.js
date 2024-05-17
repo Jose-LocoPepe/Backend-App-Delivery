@@ -1,3 +1,4 @@
+
 const Category = require('../models/category');
 
 const { request, response } = require("express");
@@ -18,15 +19,18 @@ const categoryController = {
             success: true,
             category
           });
+
         } catch (error) {
           return res.status(500).json({
             success: false,
             message: error.message
           });
         }
+
       },
     
    async getCategory(req, res) {
+
         try {
             const categories = await Category.findAll();
             return res.status(200).json({
@@ -105,8 +109,10 @@ async deleteCategory(req, res) {
     }
 }
 
+
     
   
 };
 
 module.exports = categoryController;
+

@@ -1,9 +1,11 @@
+
 //import Product from "../models/product.js";
 //import sequelize from "sequelize";
 const sequelize = require('sequelize');
 const Product = require('../models/product.js');
 const productController = {
     async createProduct(req, res) {
+
         try {
             const { name, description, price, image, categoryId } = req.body;
             const product = await Product.create({
@@ -23,8 +25,8 @@ const productController = {
                 message: error.message
             });
         }
-    },
-    async getProducts(req, res) {
+    }
+const getProducts = async(req = request, res = response) => {
         try {
             const products = await Product.findAll();
             return res.status(200).json({
@@ -37,6 +39,7 @@ const productController = {
                 message: error.message
             });
         }
+
     },
     async deleteProduct(req, res) {
         const { id } = req.params;
@@ -67,3 +70,4 @@ const productController = {
 }
 
 module.exports = productController;
+
