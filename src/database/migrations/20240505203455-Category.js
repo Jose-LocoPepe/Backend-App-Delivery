@@ -16,15 +16,27 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.BLOB,
+        references: {
+          model: 'CategoryImage',
+          key: 'id'
+        }
       },
       description: {
         allowNull: false,
         unique: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
       
     });
   },

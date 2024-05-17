@@ -2,26 +2,36 @@ const Category = require('../models/category');
 
 const { request, response } = require("express");
 const sequelize = require('sequelize');
-categoryController = {
+
+
+const categoryController = {
     async createCategory(req, res) {
-    try {
-            const { name, description, image } = req.body;
-            const category = await Category.create({
-                name,
-                description,
-                image
+        try {
+          const { name, description } = req.body;
+          if (!req.file) {
+            return res.status(400).json({
+              success: false,
+              message: 'No image file was provided.'
             });
-            return res.status(201).json({
-                success: true,
-                category
-            });
+          }
+          const image = req.file.filename;
+          const category = await Category.create({
+            name,
+            description,
+            image
+          });
+          return res.status(201).json({
+            success: true,
+            category
+          });
         } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
+          return res.status(500).json({
+            success: false,
+            message: error.message
+          });
         }
-    },
+      },
+    
    async getCategory(req, res) {
         try {
             const categories = await Category.findAll();
@@ -37,8 +47,42 @@ categoryController = {
         }
     },
    async updateCategory(req, res) {
+       const { name, description } = req.body;
+       const { id } = req.params;
         try {
-            const { id } = req.params;
+            if(!id || !name || !description){
+                return res.status(401).json({
+                    success: false,
+                    message: "Los campos son obligatorios"
+                });
+            }
+            const category = await Category.update({
+                name,
+                description
+            }, {
+                where: {
+                    id
+                }
+            });
+        }catch{
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+        ,
+    async deleteCategory(req, res) {
+        const { id } = req.params;
+        
+        try {
+            if(!id){
+                return res.status(401).json({
+                    success: false,
+                    message: "El id es obligatorio"
+                });
+            }
+            
             const category = await Category.destroy({
                 where: {
                     id
@@ -54,7 +98,9 @@ categoryController = {
                 message: error.message
             });
         }
-    }
-}
+    },
+    
+  
+};
 
 module.exports = categoryController;

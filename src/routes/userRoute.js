@@ -25,6 +25,9 @@ router.get("/", async (req, res) => {
 router.get("/getProducts", productController.getProducts);
 router.get("/getCategory", categoryController.getCategory);
 
+router.post("/createCategory",categoryController.createCategory);
+router.delete("/deleteCategory/:id",categoryController.deleteCategory);
+
 router.put('/:id',[
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('lastname', 'El apellido es obligatorio').not().isEmpty(),
