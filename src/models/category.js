@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
@@ -21,11 +22,11 @@ Category.init({
     description: {
         type: DataTypes.STRING,
         allowNull: false
-    },
+    },/*
     image: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
+        type: Sequelize.BLOB,
+        allowNull: true
+      }*/
 }, {
     sequelize: dbConnect,
     modelName: 'Category'
