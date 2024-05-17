@@ -23,6 +23,34 @@ const putUser = async (req = request, res = response) => {
 
 
 const changePassword = async (req = request, res = response) => {
-}
+    const { id } = req.params;
+    const { newPassword } = req.body;
+
+    try {
+        const user = await User.findOne({ where: { id: id } });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Usuario no encontrado"
+            });
+        }
+
+        user.password = newPassword; // Asegúrate de que la contraseña esté siendo hasheada antes de guardarla.
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Contraseña cambiada correctamente"
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Error al cambiar la contraseña"
+        });
+    }
+};
+
 
 module.exports = { getUsers, putUser,changePassword };
