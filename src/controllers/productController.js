@@ -38,6 +38,31 @@ const productController = {
             });
         }
     },
+    async deleteProduct(req, res) {
+        const { id } = req.params;
+        try {
+            if (!id) {
+                return res.status(401).json({
+                    success: false,
+                    message: "El id es obligatorio"
+                });
+            }
+            const product = await Product.destroy({
+                where: {
+                    id
+                }
+            });
+            return res.status(200).json({
+                success: true,
+                message: "Producto eliminado correctamente"
+            });
+        } catch {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
     
 }
 

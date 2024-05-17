@@ -22,11 +22,11 @@ Category.init({
     description: {
         type: DataTypes.STRING,
         allowNull: false
-    },
+    },/*
     image: {
         type: Sequelize.BLOB,
         allowNull: true
-      }
+      }*/
 }, {
     sequelize: dbConnect,
     modelName: 'Category'

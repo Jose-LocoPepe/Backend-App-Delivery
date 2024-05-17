@@ -8,17 +8,11 @@ const categoryController = {
     async createCategory(req, res) {
         try {
           const { name, description } = req.body;
-          if (!req.file) {
-            return res.status(400).json({
-              success: false,
-              message: 'No image file was provided.'
-            });
-          }
-          const image = req.file.filename;
+          
           const category = await Category.create({
             name,
             description,
-            image
+            
           });
           return res.status(201).json({
             success: true,
@@ -72,33 +66,45 @@ const categoryController = {
         }
     }
         ,
-    async deleteCategory(req, res) {
-        const { id } = req.params;
-        
-        try {
-            if(!id){
-                return res.status(401).json({
-                    success: false,
-                    message: "El id es obligatorio"
-                });
-            }
-            
-            const category = await Category.destroy({
-                where: {
-                    id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                message: "Category deleted"
-            });
-        } catch (error) {
-            return res.status(500).json({
+    
+async deleteCategory(req, res) {
+    const { id } = req.params;
+    
+    try {
+        if (!id) {
+            return res.status(400).json({
                 success: false,
-                message: error.message
+                message: "El id es obligatorio"
             });
         }
-    },
+        
+        const category = await Category.findOne({ where: { id } });
+        
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found"
+            });
+        }
+        
+        await Category.destroy({
+            where: {
+                id
+            }
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Category deleted"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
     
   
 };
