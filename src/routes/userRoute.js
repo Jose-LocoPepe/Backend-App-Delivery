@@ -1,6 +1,8 @@
 const { Router, request, response, next } = require("express");
 const { check } = require("express-validator");
 const ProductController = require("../controllers/productController")
+const CategoryController = require("../controllers/categoryController")
+
 
 //Controllers
 //const UserController = require("../controllers/userController");
@@ -11,7 +13,7 @@ const { putUser } = require("../controllers/userController");
 
 const router = Router();
 
-// ** GETS ** //
+//  GETS  //
 
 router.get("/", async (req, res) => {
     try {
@@ -30,5 +32,8 @@ router.put('/:id',[
 ],putUser)
 
 router.get('/getProducts',ProductController.getProducts);
+router.post('/createProduct',ProductController.createProduct);
+router.get('/getCategory', CategoryController.getCategory);
 
 module.exports = router;
+
