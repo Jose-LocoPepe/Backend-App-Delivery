@@ -40,10 +40,10 @@ const getProducts = async(req = request, res = response) => {
     }
 const getPictures = async(req = request, res = response) => {
         try {
-            const products = await ProductImage.findAll();
+            const productimages = await ProductImage.findAll();
             return res.status(200).json({
                 success: true,
-                products
+                productimages
             });
         } catch (error) {
             return res.status(500).json({
