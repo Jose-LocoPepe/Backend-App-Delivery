@@ -17,6 +17,17 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        name: 'Mati',
+        lastname: 'Nuñes',
+        email:'m@m.cl',
+        phone: '123456789',
+        password: bcryptjs.hashSync('123', salt),
+        imagen: 'imagen',
+        rol_id: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 

@@ -26,7 +26,9 @@ categoryController = {
                 message: error.message
             });
         }
-    },
+    }
+    ,
+
     getCategory: async(req = request, res = response) => {
         try {
             const categories = await Category.findAll();
