@@ -35,6 +35,8 @@ router.get('/getProducts',ProductController.getProducts);
 router.post('/createProduct',ProductController.createProduct);
 router.get('/getPictures',ProductController.getPictures);
 router.get('/getCategory', CategoryController.getCategory);
+router.post('/deleteCategory', CategoryController.deleteCategory);
+
 
 module.exports = router;
 
