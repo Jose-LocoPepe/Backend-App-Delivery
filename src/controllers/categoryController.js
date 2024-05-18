@@ -43,7 +43,7 @@ categoryController = {
     },
     deleteCategory: async(req = request, res = response) => {
         try {
-            const { id } = req.params;
+            const { id } = req.body;
             const category = await Category.destroy({
                 where: {
                     id
