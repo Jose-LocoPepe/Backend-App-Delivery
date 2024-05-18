@@ -23,7 +23,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        unique: true,
+        unique: false,
         type: Sequelize.INTEGER
       },
       categoryid: {
