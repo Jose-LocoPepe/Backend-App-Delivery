@@ -1,9 +1,10 @@
-
+const { request, response } = require("express");
 
 // Models
 const Product = require("../models/product")
 const ProductImage = require("../models/productsimage");
 
+const createProduct = async (req = request, res = response) => {
         try {
             const { name, description, price, categoryid } = req.body;
             const product = await Product.create({
@@ -31,32 +32,6 @@ const getProducts = async(req = request, res = response) => {
                 products
             });
         } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
-
-    },
-    async deleteProduct(req, res) {
-        const { id } = req.params;
-        try {
-            if (!id) {
-                return res.status(401).json({
-                    success: false,
-                    message: "El id es obligatorio"
-                });
-            }
-            const product = await Product.destroy({
-                where: {
-                    id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                message: "Producto eliminado correctamente"
-            });
-        } catch {
             return res.status(500).json({
                 success: false,
                 message: error.message
