@@ -17,6 +17,28 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        name: 'Elsa',
+        lastname: 'Capunta',
+        email:'t2@t2.cl',
+        phone: '123456789',
+        password: bcryptjs.hashSync('test2', salt),
+        imagen: 'imagen2',
+        rol_id: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Benito',
+        lastname: 'Camelo',
+        email:'t3@t3.cl',
+        phone: '123456789',
+        password: bcryptjs.hashSync('test3', salt),
+        imagen: 'imagen3',
+        rol_id: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 

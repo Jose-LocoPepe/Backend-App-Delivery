@@ -1,5 +1,9 @@
 const { Router, request, response, next } = require("express");
 const { check } = require("express-validator");
+const ProductController = require("../controllers/productController")
+const CategoryController = require("../controllers/categoryController")
+const UserController = require("../controllers/userController")
+
 
 //Controllers
 //const UserController = require("../controllers/userController");
@@ -10,7 +14,7 @@ const { putUser } = require("../controllers/userController");
 
 const router = Router();
 
-// ** GETS ** //
+//  GETS  //
 
 router.get("/", async (req, res) => {
     try {
@@ -28,4 +32,16 @@ router.put('/:id',[
     validateFields
 ],putUser)
 
+router.get('/getProducts',ProductController.getProducts);
+router.post('/createProduct',ProductController.createProduct);
+router.get('/getPictures',ProductController.getPictures);
+router.get('/getCategory', CategoryController.getCategory);
+router.post('/createCategory', CategoryController.createCategory);
+router.post('/deleteCategory', CategoryController.deleteCategory);
+
+router.put('/:id/password',[check('currentPassword', 'La contraseña actual es obligatoria').not().isEmpty(),
+check('newPassword', 'La nueva contraseña es obligatoria').not().isEmpty(),
+validateFields], UserController.changePassword);
+
 module.exports = router;
+

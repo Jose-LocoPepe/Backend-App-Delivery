@@ -6,7 +6,7 @@ class Product extends Model {
     static name;
     static description;
     static price;
-    static image;
+    /*static image;*/
 }
 
 Product.init({
@@ -27,10 +27,10 @@ Product.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    image: {
+    /*image: {
         type: DataTypes.STRING,
         allowNull: false
-    },
+    },*/
 
 }, {
     sequelize: dbConnect,
