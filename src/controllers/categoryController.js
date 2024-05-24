@@ -10,11 +10,10 @@ const Category = require("../models/category")
 categoryController = {
     createCategory: async(req = request, res = response) => {
     try {
-            const { name, description, image } = req.body;
+            const { name, description} = req.body;
             const category = await Category.create({
                 name,
-                description,
-                image
+                description
             });
             return res.status(201).json({
                 success: true,
