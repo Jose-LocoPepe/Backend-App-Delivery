@@ -1,11 +1,10 @@
+const { request, response } = require("express");
 
-//import Product from "../models/product.js";
-//import sequelize from "sequelize";
-const sequelize = require('sequelize');
-const Product = require('../models/product.js');
-const productController = {
-    async createProduct(req, res) {
+// Models
+const Product = require("../models/product")
+const ProductImage = require("../models/productsimage");
 
+const createProduct = async (req = request, res = response) => {
         try {
             const { name, description, price, image, categoryId } = req.body;
             const product = await Product.create({
@@ -39,35 +38,19 @@ const getProducts = async(req = request, res = response) => {
                 message: error.message
             });
         }
-
-    },
-    async deleteProduct(req, res) {
-        const { id } = req.params;
+    }
+const getPictures = async(req = request, res = response) => {
         try {
-            if (!id) {
-                return res.status(401).json({
-                    success: false,
-                    message: "El id es obligatorio"
-                });
-            }
-            const product = await Product.destroy({
-                where: {
-                    id
-                }
-            });
+            const productimages = await ProductImage.findAll();
             return res.status(200).json({
                 success: true,
-                message: "Producto eliminado correctamente"
+                productimages
             });
-        } catch {
+        } catch (error) {
             return res.status(500).json({
                 success: false,
                 message: error.message
             });
         }
     }
-    
-}
-
-module.exports = productController;
-
+module.exports = { createProduct, getProducts, getPictures }
