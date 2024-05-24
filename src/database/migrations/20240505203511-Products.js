@@ -24,7 +24,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        unique: false,
+        unique: true,
         type: Sequelize.INTEGER
       },
       categoryid: {
@@ -35,14 +35,6 @@ module.exports = {
           key: 'id'
         }
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
 
@@ -50,3 +42,4 @@ module.exports = {
     return queryInterface.dropTable('Products');
   }
 };
+
