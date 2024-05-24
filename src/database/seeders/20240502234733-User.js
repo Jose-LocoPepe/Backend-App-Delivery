@@ -18,12 +18,23 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        name: 'Elsa',
+        lastname: 'Capunta',
+        email:'t2@t2.cl',
+        phone: '123456789',
+        password: bcryptjs.hashSync('test2', salt),
+        imagen: 'imagen2',
+        rol_id: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         name: 'Mati',
         lastname: 'Nuñes',
         email:'m@m.cl',
         phone: '123456789',
         password: bcryptjs.hashSync('123', salt),
-        imagen: 'imagen',
+        imagen: 'imagen3',
         rol_id: 3,
         createdAt: new Date(),
         updatedAt: new Date()

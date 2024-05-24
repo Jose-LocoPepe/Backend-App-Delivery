@@ -1,19 +1,16 @@
 
-//import Product from "../models/product.js";
-//import sequelize from "sequelize";
-const sequelize = require('sequelize');
-const Product = require('../models/product.js');
-const productController = {
-    async createProduct(req, res) {
+
+// Models
+const Product = require("../models/product")
+const ProductImage = require("../models/productsimage");
 
         try {
-            const { name, description, price, image, categoryId } = req.body;
+            const { name, description, price, categoryid } = req.body;
             const product = await Product.create({
                 name,
                 description,
                 price,
-                image,
-                categoryId
+                categoryid
             });
             return res.status(201).json({
                 success: true,
@@ -66,8 +63,18 @@ const getProducts = async(req = request, res = response) => {
             });
         }
     }
-    
-}
-
-module.exports = productController;
-
+const getPictures = async(req = request, res = response) => {
+        try {
+            const productimages = await ProductImage.findAll();
+            return res.status(200).json({
+                success: true,
+                productimages
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+module.exports = { createProduct, getProducts, getPictures }

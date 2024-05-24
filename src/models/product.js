@@ -2,7 +2,13 @@ const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 const Category = require('./category');
 
-class Product extends Model {}
+class Product extends Model {
+    static id;
+    static name;
+    static description;
+    static price;
+    /*static image;*/
+}
 
 Product.init({
     id: {
@@ -21,11 +27,12 @@ Product.init({
     price: {
         type: DataTypes.FLOAT, // Cambié STRING a FLOAT
         allowNull: false
-    },/*
-    image: {
-        type: DataTypes.BLOB,
+    },
+    /*image: {
+        type: DataTypes.STRING,
         allowNull: false
-    }*/
+    },*/
+
 }, {
     sequelize: dbConnect,
     modelName: 'Product'

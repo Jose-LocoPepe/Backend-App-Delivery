@@ -5,20 +5,20 @@ const { request, response } = require("express");
 const sequelize = require('sequelize');
 
 
-const categoryController = {
-    async createCategory(req, res) {
-        try {
-          const { name, description } = req.body;
-          
-          const category = await Category.create({
-            name,
-            description,
-            
-          });
-          return res.status(201).json({
-            success: true,
-            category
-          });
+
+//import sequelize from 'sequelize';
+categoryController = {
+    createCategory: async(req = request, res = response) => {
+    try {
+            const { name, description} = req.body;
+            const category = await Category.create({
+                name,
+                description
+            });
+            return res.status(201).json({
+                success: true,
+                category
+            });
 
         } catch (error) {
           return res.status(500).json({
