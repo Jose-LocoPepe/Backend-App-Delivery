@@ -18,7 +18,11 @@ module.exports = {
       image: {
         allowNull: true,
         unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.BLOB,
+        references: {
+          model: 'CategoryImage',
+          key: 'id'
+        }
       },
       description: {
         allowNull: false,

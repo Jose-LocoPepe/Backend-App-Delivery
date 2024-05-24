@@ -1,10 +1,10 @@
-//import { Category } from '../models/categoryModel.js';
-//import { request, response } from 'express';
+
+const Category = require('../models/category');
 
 const { request, response } = require("express");
+const sequelize = require('sequelize');
 
-// Models
-const Category = require("../models/category")
+
 
 //import sequelize from 'sequelize';
 categoryController = {
@@ -19,14 +19,18 @@ categoryController = {
                 success: true,
                 category
             });
+
         } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
+          return res.status(500).json({
+            success: false,
+            message: error.message
+          });
         }
-    },
-    getCategory: async(req = request, res = response) => {
+
+      },
+    
+   async getCategory(req, res) {
+
         try {
             const categories = await Category.findAll();
             return res.status(200).json({
@@ -40,26 +44,75 @@ categoryController = {
             });
         }
     },
-    deleteCategory: async(req = request, res = response) => {
+   async updateCategory(req, res) {
+       const { name, description } = req.body;
+       const { id } = req.params;
         try {
-            const { id } = req.body;
-            const category = await Category.destroy({
+            if(!id || !name || !description){
+                return res.status(401).json({
+                    success: false,
+                    message: "Los campos son obligatorios"
+                });
+            }
+            const category = await Category.update({
+                name,
+                description
+            }, {
                 where: {
                     id
                 }
             });
-            return res.status(200).json({
-                success: true,
-                message: "Category deleted"
-            });
-        } catch (error) {
+        }catch{
             return res.status(500).json({
                 success: false,
                 message: error.message
             });
         }
     }
+        ,
+    
+async deleteCategory(req, res) {
+    const { id } = req.params;
+    
+    try {
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "El id es obligatorio"
+            });
+        }
+        
+        const category = await Category.findOne({ where: { id } });
+        
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found"
+            });
+        }
+        
+        await Category.destroy({
+            where: {
+                id
+            }
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Category deleted"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 }
 
-//module.exports = { createCategory, getCategory, deleteCategory }
-module.exports = categoryController
+
+    
+  
+};
+
+module.exports = categoryController;
+
