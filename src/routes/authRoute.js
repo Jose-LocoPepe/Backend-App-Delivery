@@ -18,7 +18,7 @@ router.post('/login', [
 
 router.post('/register', [
     check('name', 'El nombre es requerido').not().isEmpty(),
-    check('lastname', 'El apellido es requerido').not().isEmpty(),
+    check('lastName', 'El apellido es requerido').not().isEmpty(),
     check('phone', 'El telefono es requerido').not().isEmpty(),
     check('email', 'El email es requerido').not().isEmpty(),
     check('email', 'El email debe ser valido').isEmail(),
