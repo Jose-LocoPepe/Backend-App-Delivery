@@ -18,7 +18,7 @@ CREATE TABLE usuarios (
     correo VARCHAR(180) NOT NULL UNIQUE,
     telefono VARCHAR(90) NOT NULL,
     contrasenia VARCHAR(90) NULL,
-    imagen VARCHAR(255) NULL,
+    image VARCHAR(255) NULL,
     created_at TIMESTAMP(0) NOT NULL,
     updated_at TIMESTAMP(0) NOT NULL
 );
@@ -89,7 +89,7 @@ CREATE TABLE usuarios (
     correo varchar(45),
     telefono varchar(45),
     contrasenia varchar(45),
-    imagen varchar(45),
+    image varchar(45),
     rol_id int,
     PRIMARY KEY (id),
     FOREIGN KEY (rol_id) REFERENCES roles(id)
@@ -101,7 +101,7 @@ CREATE TABLE users(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(180) NOT NULL UNIQUE,
     name VARCHAR(90) NOT NULL,
-    lastname VARCHAR(90) NOT NULL,
+    lastName VARCHAR(90) NOT NULL,
     phone VARCHAR(90) NOT NULL UNIQUE,
     image VARCHAR(255) NULL,
     password VARCHAR(90) NOT NULL,

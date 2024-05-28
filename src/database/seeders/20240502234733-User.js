@@ -7,23 +7,48 @@ module.exports = {
     const salt = bcryptjs.genSaltSync();
     return queryInterface.bulkInsert('Users', [
       {
-        name: 'Pepe',
-        lastname: 'test',
-        email:'t@t.cl',
+        name: 'Diego',
+        lastName: 'Aguilera',
+        email:'diego.aguilera@alumnos.ucn.cl',
         phone: '123456789',
-        password: bcryptjs.hashSync('test', salt),
-        imagen: 'imagen',
+        password: bcryptjs.hashSync('Delivery2024', salt),
+        image: 'image',
         rol_id: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Mati',
-        lastname: 'Nuñes',
-        email:'m@m.cl',
+        name: 'Pepe',
+        lastName: 'test',
+        email:'t@t.cl',
         phone: '123456789',
-        password: bcryptjs.hashSync('123', salt),
-        imagen: 'imagen',
+        password: bcryptjs.hashSync('test', salt),
+        image: 'image',
+        rol_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      
+      {
+
+        name: 'Elsa',
+        lastName: 'Capunta',
+        email:'t2@t2.cl',
+        phone: '123456789',
+        password: bcryptjs.hashSync('test2', salt),
+        image: 'image2',
+        rol_id: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Benito',
+        lastName: 'Camelo',
+        email:'t3@t3.cl',
+        phone: '123456789',
+        password: bcryptjs.hashSync('test3', salt),
+        image: 'image3',
+
         rol_id: 3,
         createdAt: new Date(),
         updatedAt: new Date()
