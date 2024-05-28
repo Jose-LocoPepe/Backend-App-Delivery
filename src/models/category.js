@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
-
+//
 class Category extends Model {
     static id;
     static name;
