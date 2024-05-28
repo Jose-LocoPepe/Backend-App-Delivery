@@ -2,6 +2,8 @@
 //import { request, response } from 'express';
 
 const { request, response } = require("express");
+const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require ("../helpers/utils.js");
+
 
 // Models
 const Category = require("../models/category")
@@ -11,6 +13,13 @@ categoryController = {
     createCategory: async(req = request, res = response) => {
     try {
             const { name, description} = req.body;
+
+            if (!isAlphaNumericSpaceGuionPunto(name),!isAlphaNumericSpaceGuionPunto(description)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid input"
+                });
+            }
             const category = await Category.create({
                 name,
                 description

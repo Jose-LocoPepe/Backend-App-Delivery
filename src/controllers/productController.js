@@ -1,5 +1,5 @@
 const { request, response } = require("express");
-
+const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require ("../helpers/utils.js");
 // Models
 const Product = require("../models/product")
 const ProductImage = require("../models/productsimage");
@@ -7,6 +7,20 @@ const ProductImage = require("../models/productsimage");
 const createProduct = async (req = request, res = response) => {
         try {
             const { name, description, price, categoryid } = req.body;
+            if (!isAlphaNumericSpaceGuionPunto(name),!isAlphaNumericSpaceGuionPunto(description)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid input"
+                });
+            }
+
+            if(!onlyPositiveIntegers(price)){
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid input"
+                });
+            }
+            
             const product = await Product.create({
                 name,
                 description,
