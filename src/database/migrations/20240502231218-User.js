@@ -13,7 +13,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      lastname: {
+      lastName: {
           type: Sequelize.STRING
       },
       email: {
@@ -26,7 +26,7 @@ module.exports = {
       password: {
           type: Sequelize.STRING
       },
-      imagen: {
+      image: {
         allowNull: true,
         type: Sequelize.STRING
       },

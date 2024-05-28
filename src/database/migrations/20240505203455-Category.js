@@ -17,6 +17,7 @@ module.exports = {
       },
       image: {
         allowNull: true,
+        allowNull: true,
         unique: true,
         type: Sequelize.BLOB,
         references: {

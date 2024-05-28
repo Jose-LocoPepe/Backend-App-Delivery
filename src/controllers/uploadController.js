@@ -45,13 +45,13 @@ const updateImageCloudinary = async (req = request, res = response) =>{
 
         console.log(secure_url);
         // Update image to user
-        model.imagen = secure_url;
+        model.image = secure_url;
         await model.save();
 
         res.status(201).json({
             success: true,
-            data: model.imagen,
-            'message': 'Imagen actualizada con exito'
+            data: model.image,
+            'message': 'image actualizada con exito'
         });
     } catch (error) {
         

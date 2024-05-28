@@ -24,7 +24,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        unique: true,
+        unique: false,
         type: Sequelize.INTEGER
       },
       categoryid: {
@@ -35,6 +35,14 @@ module.exports = {
           key: 'id'
         }
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
 

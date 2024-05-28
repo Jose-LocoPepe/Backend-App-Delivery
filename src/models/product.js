@@ -21,11 +21,12 @@ Product.init({
     price: {
         type: DataTypes.FLOAT, // Cambié STRING a FLOAT
         allowNull: false
-    },/*
-    image: {
-        type: DataTypes.BLOB,
+    },
+    /*image: {
+        type: DataTypes.STRING,
         allowNull: false
-    }*/
+    },*/
+
 }, {
     sequelize: dbConnect,
     modelName: 'Product'
