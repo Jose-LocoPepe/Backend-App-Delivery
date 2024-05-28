@@ -10,11 +10,10 @@ const Category = require("../models/category")
 categoryController = {
     createCategory: async(req = request, res = response) => {
     try {
-            const { name, description, image } = req.body;
+            const { name, description} = req.body;
             const category = await Category.create({
                 name,
-                description,
-                image
+                description
             });
             return res.status(201).json({
                 success: true,
@@ -26,9 +25,7 @@ categoryController = {
                 message: error.message
             });
         }
-    }
-    ,
-
+    },
     getCategory: async(req = request, res = response) => {
         try {
             const categories = await Category.findAll();
@@ -45,7 +42,7 @@ categoryController = {
     },
     deleteCategory: async(req = request, res = response) => {
         try {
-            const { id } = req.params;
+            const { id } = req.body;
             const category = await Category.destroy({
                 where: {
                     id

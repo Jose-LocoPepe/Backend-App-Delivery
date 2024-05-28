@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         unique: true,
         type: Sequelize.STRING
       },
@@ -25,6 +25,14 @@ module.exports = {
         unique: true,
         type: Sequelize.STRING
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
       
     });
   },
