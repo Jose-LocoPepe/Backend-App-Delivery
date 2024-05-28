@@ -25,7 +25,8 @@ const createProduct = async (req = request, res = response) => {
                 name,
                 description,
                 price,
-                categoryid
+                image,
+                categoryId
             });
             return res.status(201).json({
                 success: true,

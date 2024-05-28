@@ -21,6 +21,6 @@ ProductImage.init({
     modelName: 'ProductImage'
 });
 
-ProductImage.ProductId = ProductImage.belongsTo(require ('./product'), {foreignKey: 'productid'});
+ProductImage.ProductId = ProductImage.belongsTo(require ('./product'), {foreignKey: 'product_id'});
 
 module.exports = ProductImage;

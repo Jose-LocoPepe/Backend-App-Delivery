@@ -4,11 +4,11 @@ const dbConnect = require('../database/connection');
 class User extends Model {
     static id;
     static name;
-    static lastName;
+    static lastname;
     static email;
     static phone;
     static password;
-    static image;
+    static imagen;
 }
 
 User.init({
@@ -16,7 +16,7 @@ User.init({
     name: {
         type: DataTypes.STRING
     },
-    lastName: {
+    lastname: {
         type: DataTypes.STRING
     },
     email: {
@@ -29,7 +29,7 @@ User.init({
     password: {
         type: DataTypes.STRING
     },
-    image: {
+    imagen: {
         type: DataTypes.STRING,
         allowNull: true
     }

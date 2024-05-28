@@ -1,13 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class Product extends Model {
-    static id;
-    static name;
-    static description;
-    static price;
-    /*static image;*/
-}
+class Product extends Model {}
 
 Product.init({
     id: {
@@ -26,12 +20,11 @@ Product.init({
     price: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    /*image: {
-        type: DataTypes.STRING,
+    },/*
+    image: {
+        type: DataTypes.BLOB,
         allowNull: false
-    },*/
-
+    }*/
 }, {
     sequelize: dbConnect,
     modelName: 'Product'

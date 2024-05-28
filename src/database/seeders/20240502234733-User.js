@@ -9,40 +9,41 @@ module.exports = {
       {
         name: 'Diego',
         lastName: 'Aguilera',
-        email:'diego.aguilera@alumnos.ucn.cl',
+        email:'diego.aguilera@alummos.ucn.cl',
         phone: '123456789',
-        password: bcryptjs.hashSync('Delivery2024', salt),
-        image: 'image',
+        password: bcryptjs.hashSync('delivery2024', salt),
+        imagen: 'imagen',
         rol_id: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
+
       {
         name: 'Pepe',
         lastName: 'test',
         email:'t@t.cl',
         phone: '123456789',
         password: bcryptjs.hashSync('test', salt),
-        image: 'image',
+        imagen: 'imagen',
         rol_id: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      
       {
+
         name: 'Elsa',
         lastName: 'Capunta',
         email:'t2@t2.cl',
         phone: '123456789',
         password: bcryptjs.hashSync('test2', salt),
-        image: 'image2',
+        imagen: 'imagen2',
         rol_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: 'Benito',
-        lastName: 'Camelo',
+        lastName: 'Martinez',
         email:'t3@t3.cl',
         phone: '123456789',
         password: bcryptjs.hashSync('test3', salt),
