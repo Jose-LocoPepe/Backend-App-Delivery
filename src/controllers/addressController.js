@@ -5,10 +5,10 @@ import sequelize from "sequelize";
 const adressController = {
     async createAdress(req, res) {
         try {
-            const { userId, adress, street, complement, reference } = req.body;
+            const { userId, address, street, complement, reference } = req.body;
             const new_adress = await Address.create({
                 userId,
-                adress,
+                address,
                 street,
                 complement,
                 reference
