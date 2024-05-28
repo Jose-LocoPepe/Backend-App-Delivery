@@ -6,12 +6,13 @@ const ProductImage = require("../models/productsimage");
 
 const createProduct = async (req = request, res = response) => {
         try {
-            const { name, description, price, categoryid } = req.body;
+            const { name, description, price, image, categoryId } = req.body;
             const product = await Product.create({
                 name,
                 description,
                 price,
-                categoryid
+                image,
+                categoryId
             });
             return res.status(201).json({
                 success: true,

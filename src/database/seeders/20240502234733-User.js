@@ -30,6 +30,7 @@ module.exports = {
       },
       
       {
+
         name: 'Elsa',
         lastName: 'Capunta',
         email:'t2@t2.cl',
@@ -47,6 +48,7 @@ module.exports = {
         phone: '123456789',
         password: bcryptjs.hashSync('test3', salt),
         image: 'image3',
+
         rol_id: 3,
         createdAt: new Date(),
         updatedAt: new Date()
