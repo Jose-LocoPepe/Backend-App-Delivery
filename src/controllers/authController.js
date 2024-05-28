@@ -40,10 +40,10 @@ const login = async (req, res) => {
         const Userdata = {
             id: user.id,
             name: user.name,
-            lastName: user.lastName,
+            lastname: user.lastname,
             email: user.email,
             phone: user.phone,
-            image: user.image,
+            imagen: user.imagen,
             rol_id: JSON.parse(user.rol_id),
             session_token: token
 
@@ -87,8 +87,8 @@ const register = async (req = request, res = response) => {
 
         await user.save();
         const token = await generateJWT(user.id);
-        const { id, name, lastName, email, phone, image, rol_id } = user;
-        const dataUser = { id, name, lastName, email, phone, image, rol_id, token };
+        const { id, name, lastname, email, phone, imagen, rol_id } = user;
+        const dataUser = { id, name, lastname, email, phone, imagen, rol_id, token };
         return res.status(200).json({
             success: true,
             data: dataUser,
@@ -127,14 +127,14 @@ const validateToken = async (req = request, res = response) => {
 
         const {
             name,
-            lastName,
+            lastname,
             phone,
             email,
             image,
             role_id
         } = user;
 
-        const dataUser = { id, name, lastName, phone, email, image, role_id, session_token: token };
+        const dataUser = { id, name, lastname, phone, email, image, role_id, session_token: token };
         
         if (user) {
             return res.status(200).json({

@@ -7,9 +7,9 @@ const { updateImageCloudinary } = require("../controllers/uploadController");
 const router = Router();
 
 
-// Actualizar la image
+// Actualizar la imagen
 
-// Creacion user db sin image
+// Creacion user db sin imagen
 router.put('/:collection/:id', [
     validateArchiveUpload,
     validateFields
