@@ -35,12 +35,7 @@ module.exports = {
         email:'t3@t3.cl',
         phone: '123456789',
         password: bcryptjs.hashSync('test3', salt),
-<<<<<<< HEAD
         image: 'image3',
-
-=======
-        imagen: 'imagen3',
->>>>>>> parent of 6501db2 ((fix) Fixed the variables lettercase.)
         rol_id: 3,
         createdAt: new Date(),
         updatedAt: new Date()
