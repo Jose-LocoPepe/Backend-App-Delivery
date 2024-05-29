@@ -9,6 +9,7 @@ const Rol = require("../models/rol.js");
 const generateJWT = require('../helpers/generate-jws');
 
 const jwt = require("jsonwebtoken");
+const { isAlphaNumericSpaceGuion } = require("../helpers/utils.js");
 
 /**
  * Logs in a user.
@@ -94,6 +95,13 @@ const register = async (req = request, res = response) => {
         await user.save();
         const token = await generateJWT(user.id);
         const { id, name, lastname, email, phone, imagen, rol_id } = user;
+
+        if(!isAlphaNumericSpaceGuion(name) || !isAlphaNumericSpaceGuion(lastname)){
+            return res.status(400).json({
+                success: false,
+                message: "Invalid input"
+            });
+        }
         const dataUser = { id, name, lastname, email, phone, imagen, rol_id, token };
         return res.status(200).json({
             success: true,
