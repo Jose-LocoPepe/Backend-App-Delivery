@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 
 router.put('/:id',[
     check('name', 'El nombre es obligatorio').not().isEmpty(),
-    check('lastName', 'El apellido es obligatorio').not().isEmpty(),
+    check('lastname', 'El apellido es obligatorio').not().isEmpty(),
     check('phone', 'El telefono es obligatorio').not().isEmpty(),
     validateFields
 ],putUser)
