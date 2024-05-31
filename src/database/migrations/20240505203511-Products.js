@@ -32,9 +32,23 @@ module.exports = {
         references: {
           model: 'Categories',
           key: 'id'
+        }},
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+
+        isActive:{
+          allowNull: false,
+          type: Sequelize.BOOLEAN,
+          defaultValue: true
         }
       },
-    });
+    );
   },
 
   async down (queryInterface, Sequelize) {

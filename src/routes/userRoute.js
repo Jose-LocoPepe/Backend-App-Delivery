@@ -30,6 +30,8 @@ router.put('/:id',[
     validateFields
 ],putUser)
 
+router.patch('/product/:id/name',ProductController.updateName);
+
 router.get('/getProducts',ProductController.getProducts);
 router.get('/getCategory', CategoryController.getCategory);
 router.post('/createCategory', CategoryController.createCategory);

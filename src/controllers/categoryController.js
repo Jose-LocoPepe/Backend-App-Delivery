@@ -1,29 +1,29 @@
-//import { Category } from '../models/categoryModel.js';
-//import { request, response } from 'express';
-
 const { request, response } = require("express");
-const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require ("../helpers/utils.js");
-
+//const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require("../helpers/utils.js");
 
 // Models
-const Category = require("../models/category")
+const Category = require("../models/category");
+const Product = require("../models/product");
 
-//import sequelize from 'sequelize';
-categoryController = {
-    createCategory: async(req = request, res = response) => {
-    try {
-            const { name, description} = req.body;
+const categoryController = {
+    createCategory: async (req = request, res = response) => {
+        try {
+            const { name, description } = req.body;
 
-            if (!isAlphaNumericSpaceGuionPunto(name),!isAlphaNumericSpaceGuionPunto(description)) {
+          /*  if (!isAlphaNumericSpaceGuionPunto(name) || !isAlphaNumericSpaceGuionPunto(description)) {
                 return res.status(400).json({
                     success: false,
                     message: "Invalid input"
                 });
             }
+*/
+
+            console.log(req.body);
             const category = await Category.create({
-                name,
-                description
+                name: name,
+                description: description            
             });
+            console.log(category);
             return res.status(201).json({
                 success: true,
                 category
@@ -35,7 +35,7 @@ categoryController = {
             });
         }
     },
-    getCategory: async(req = request, res = response) => {
+    getCategory: async (req = request, res = response) => {
         try {
             const categories = await Category.findAll();
             return res.status(200).json({
@@ -49,10 +49,10 @@ categoryController = {
             });
         }
     },
-    deleteCategory: async(req = request, res = response) => {
+    deleteCategory: async (req = request, res = response) => {
         try {
             const { id } = req.body;
-            const category = await Category.destroy({
+            await Category.destroy({
                 where: {
                     id
                 }
@@ -67,8 +67,29 @@ categoryController = {
                 message: error.message
             });
         }
+    },
+    deactivateCategory: async (req = request, res = response) => {
+        try {
+            const { id } = req.body;
+            const productList = await Product.findAll({ where: { categoryId: id } });
+
+            for (let i = 0; i < productList.length; i++) {
+                productList[i].isActive = false;
+                await productList[i].save();
+            }
+
+            await Category.update({ isActive: false }, { where: { id } });
+            return res.status(200).json({
+                success: true,
+                message: "Category deactivated"
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
     }
 }
 
-//module.exports = { createCategory, getCategory, deleteCategory }
-module.exports = categoryController
+module.exports = categoryController;

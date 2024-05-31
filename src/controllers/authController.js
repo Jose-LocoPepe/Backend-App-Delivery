@@ -39,11 +39,7 @@ const login = async (req, res) => {
         }
         const token = await generateJWT(user.id);
 
-        /*
-        aca no faltaría address?
-        usar validaciones de helpers/utils.js
-        Fernando 28-05-2024 07:01 AM
-        */
+       
         const Userdata = {
             id: user.id,
             name: user.name,

@@ -4,7 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.createTable('Categories', {
-    id: {
+    id:{
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -32,6 +32,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      isActive:{
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
       }
       
     });

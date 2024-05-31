@@ -48,10 +48,10 @@ const requestController = {
     updateRequest: async (req, res) => {
         try {
             const { id } = req.params;
-            const { clientId, adressId, requestDate, status, totalPrice } = req.body;
+            const { clientId, adressId: addressId, requestDate, status, totalPrice } = req.body;
             const request = await Request.update({
                 clientId,
-                adressId,
+                addressId: addressId,
                 requestDate,
                 status,
                 totalPrice

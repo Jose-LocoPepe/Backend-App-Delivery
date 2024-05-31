@@ -20,15 +20,34 @@ Product.init({
     price: {
         type: DataTypes.STRING,
         allowNull: false
-    },/*
+    },
+    categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
+    isActive:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
+    ,
     image: {
         type: DataTypes.BLOB,
         allowNull: false
-    }*/
+    }
 }, {
     sequelize: dbConnect,
     modelName: 'Product'
 });
-Product.Category = Product.belongsTo(require ('./category'), {foreignKey: 'categoryid'});
+Product.Category = Product.belongsTo(require ('./category'), {foreignKey: 'categoryId'});
 
 module.exports = Product;
