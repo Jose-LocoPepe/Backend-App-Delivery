@@ -15,7 +15,17 @@ Rol.init({
     name: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
 }, {
     sequelize: dbConnect,
     modelName: 'Rol'

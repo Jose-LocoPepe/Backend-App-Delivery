@@ -45,7 +45,7 @@ const getProducts = async(req = request, res = response) => {
             const products = await Product.findAll();
             return res.status(200).json({
                 success: true,
-                products
+                data: products
             });
         } catch (error) {
             return res.status(500).json({

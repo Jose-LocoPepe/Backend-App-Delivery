@@ -29,7 +29,7 @@ User.init({
     password: {
         type: DataTypes.STRING
     },
-    imagen: {
+    image: {
         type: DataTypes.STRING,
         allowNull: true
     }
