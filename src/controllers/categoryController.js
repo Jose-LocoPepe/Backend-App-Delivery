@@ -98,5 +98,5 @@ categoryController = {
     }
 }
 
-module.exports = { createCategory, getCategory, deactivateCategory }
-//module.exports = categoryController
+//module.exports = { createCategory, getCategory, deactivateCategory }
+module.exports = categoryController

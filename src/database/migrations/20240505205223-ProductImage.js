@@ -4,7 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.createTable('ProductImages', {
-    id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -15,7 +15,7 @@ module.exports = {
         unique: true,
         type: Sequelize.STRING
       },
-      productid: {
+      productId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
