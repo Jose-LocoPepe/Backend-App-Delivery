@@ -2,7 +2,7 @@ import Address from "../models/address.js";
 import sequelize from "sequelize";
 
 
-const adressController = {
+const addressController = {
     async createAdress(req, res) {
         try {
             const { userId, address, street, complement, reference } = req.body;
