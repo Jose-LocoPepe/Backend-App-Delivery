@@ -26,7 +26,8 @@ const createProduct = async (req = request, res = response) => {
                 description,
                 price,
                 image,
-                categoryId
+                categoryId,
+                
             });
             return res.status(201).json({
                 success: true,
@@ -67,4 +68,65 @@ const getPictures = async(req = request, res = response) => {
             });
         }
     }
-module.exports = { createProduct, getProducts, getPictures }
+const updateName = async(req,res) => {
+      try{
+        const { id, name } = req.body;
+        if(!isAlphaNumericSpaceGuionPunto(name)){
+            return res.status(400).json({
+                success: false,
+                message: "Invalid input"
+            });
+        }
+        const product = await Product.update({name}, {where: {id}});
+        return res.status(200).json({
+            success: true,
+            product
+        });
+      }
+        catch(error){
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
+    const updatePrice = async(req,res) => {
+        try {
+            const { id, price } = req.body;
+            if(!onlyPositiveIntegers(price)){
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid input"
+                });
+            }
+            const product = await Product.update({price}, {where: {id}});
+            return res.status(200).json({
+                success: true,
+                product
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+    const updateImage = async(req,res) => {
+        try {
+            const { id, image } = req.body;
+            const product = await Product.update({image}, {where: {id}});
+            return res.status(200).json({
+                success: true,
+                product
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+}
+
+module.exports = { createProduct, getProducts, getPictures, updateName, updatePrice, updateImage}

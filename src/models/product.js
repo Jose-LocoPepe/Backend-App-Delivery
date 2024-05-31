@@ -20,7 +20,12 @@ Product.init({
     price: {
         type: DataTypes.STRING,
         allowNull: false
-    },/*
+    },
+    isActive:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
+    /*
     image: {
         type: DataTypes.BLOB,
         allowNull: false
@@ -29,6 +34,6 @@ Product.init({
     sequelize: dbConnect,
     modelName: 'Product'
 });
-Product.Category = Product.belongsTo(require ('./category'), {foreignKey: 'categoryid'});
+Product.Category = Product.belongsTo(require ('./category'), {foreignKey: 'categoryId'});
 
 module.exports = Product;

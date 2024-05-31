@@ -67,8 +67,36 @@ categoryController = {
                 message: error.message
             });
         }
+    },
+     deactivateCategory: async(req = request, res = response) => {
+        try {
+            const { id } = req.body;
+            const productList = await Product.findAll({categoryId: id});
+
+            for (let i = 0; i < productList.length; i++) {
+                productList[i].isActive = false;
+                await productList[i].save();
+            }
+
+            const category = await Category.update({
+                isActive: false
+            }, {
+                where: {
+                    id
+                }
+            });
+            return res.status(200).json({
+                success: true,
+                message: "Category deactivated"
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
     }
 }
 
-//module.exports = { createCategory, getCategory, deleteCategory }
-module.exports = categoryController
+module.exports = { createCategory, getCategory, deactivateCategory }
+//module.exports = categoryController

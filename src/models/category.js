@@ -21,7 +21,13 @@ Category.init({
     description: {
         type: DataTypes.STRING,
         allowNull: false
-    },/*
+    },
+    isActive:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    
+    }
+    /*
     image: {
         type: Sequelize.BLOB,
         allowNull: true
