@@ -21,15 +21,29 @@ Product.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
     isActive:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
     }
-    /*
+    ,
     image: {
         type: DataTypes.BLOB,
         allowNull: false
-    }*/
+    }
 }, {
     sequelize: dbConnect,
     modelName: 'Product'
