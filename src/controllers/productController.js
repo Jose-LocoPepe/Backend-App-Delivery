@@ -45,7 +45,7 @@ const getProducts = async(req = request, res = response) => {
             const products = await Product.findAll();
             return res.status(200).json({
                 success: true,
-                data: products
+                products: products
             });
         } catch (error) {
             return res.status(500).json({
@@ -126,7 +126,22 @@ const updateName = async(req,res) => {
                 message: error.message
             });
         }
-
 }
+const deactivateProduct = async (req = request, res = response) => {
+        try {
+            const { id } = req.body;
 
-module.exports = { createProduct, getProducts, getPictures, updateName, updatePrice, updateImage}
+            await Product.update({ isActive: false }, { where: { id } });
+            return res.status(200).json({
+                success: true,
+                message: "Product deactivated"
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
+module.exports = { createProduct, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct}
