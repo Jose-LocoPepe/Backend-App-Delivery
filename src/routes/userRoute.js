@@ -33,7 +33,9 @@ router.put('/:id',[
 router.patch('/product/:id/name',ProductController.updateName);
 
 router.get('/getProducts',ProductController.getProducts);
+router.get('/getPictures',ProductController.getPictures);
 router.get('/getCategory', CategoryController.getCategory);
 router.post('/createCategory', CategoryController.createCategory);
+router.post('/deleteCategory', CategoryController.deactivateCategory);
 
 module.exports = router;

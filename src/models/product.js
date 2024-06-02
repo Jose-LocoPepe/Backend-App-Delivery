@@ -39,11 +39,6 @@ Product.init({
         type: DataTypes.BOOLEAN,
         defaultValue: true
     }
-    ,
-    image: {
-        type: DataTypes.BLOB,
-        allowNull: false
-    }
 }, {
     sequelize: dbConnect,
     modelName: 'Product'
