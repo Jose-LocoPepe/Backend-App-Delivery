@@ -37,7 +37,7 @@ const categoryController = {
     },
     getCategory: async (req = request, res = response) => {
         try {
-            const categories = await Category.findAll();
+            const categories = await Category.findAll({ where: { isActive: true } });
             return res.status(200).json({
                 success: true,
                 categories
