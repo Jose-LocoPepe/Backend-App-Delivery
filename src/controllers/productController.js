@@ -7,6 +7,7 @@ const ProductImage = require("../models/productsimage");
 const createProduct = async (req = request, res = response) => {
         try {
             const { name, description, price, categoryId } = req.body;
+   
             if (!isAlphaNumericSpaceGuionPunto(name),!isAlphaNumericSpaceGuionPunto(description)) {
                 return res.status(400).json({
                     success: false,
@@ -22,11 +23,10 @@ const createProduct = async (req = request, res = response) => {
             }
             
             const product = await Product.create({
-                name,
-                description,
-                price,
-                image,
-                categoryId,
+                name: name,
+                description: description,
+                price: price,
+                categoryId: categoryId,
                 
             });
             return res.status(201).json({
