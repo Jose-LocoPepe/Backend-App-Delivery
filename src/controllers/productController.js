@@ -42,7 +42,7 @@ const createProduct = async (req = request, res = response) => {
     }
 const getProducts = async(req = request, res = response) => {
         try {
-            const products = await Product.findAll();
+            const products = await Product.findAll({ where: { isActive: true } });
             return res.status(200).json({
                 success: true,
                 products: products
