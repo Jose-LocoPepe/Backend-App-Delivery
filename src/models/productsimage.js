@@ -15,12 +15,22 @@ ProductImage.init({
     image: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date()
     }
 }, {
     sequelize: dbConnect,
     modelName: 'ProductImage'
 });
 
-ProductImage.ProductId = ProductImage.belongsTo(require ('./product'), {foreignKey: 'product_id'});
+ProductImage.ProductId = ProductImage.belongsTo(require ('./product'), {foreignKey: 'productId'});
 
 module.exports = ProductImage;

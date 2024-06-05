@@ -7,6 +7,7 @@ const ProductImage = require("../models/productsimage");
 const createProduct = async (req = request, res = response) => {
         try {
             const { name, description, price, categoryId } = req.body;
+   
             if (!isAlphaNumericSpaceGuionPunto(name),!isAlphaNumericSpaceGuionPunto(description)) {
                 return res.status(400).json({
                     success: false,
@@ -22,11 +23,10 @@ const createProduct = async (req = request, res = response) => {
             }
             
             const product = await Product.create({
-                name,
-                description,
-                price,
-                image,
-                categoryId,
+                name: name,
+                description: description,
+                price: price,
+                categoryId: categoryId,
                 
             });
             return res.status(201).json({
@@ -42,10 +42,10 @@ const createProduct = async (req = request, res = response) => {
     }
 const getProducts = async(req = request, res = response) => {
         try {
-            const products = await Product.findAll();
+            const products = await Product.findAll({ where: { isActive: true } });
             return res.status(200).json({
                 success: true,
-                products
+                products: products
             });
         } catch (error) {
             return res.status(500).json({
@@ -126,7 +126,22 @@ const updateName = async(req,res) => {
                 message: error.message
             });
         }
-
 }
+const deactivateProduct = async (req = request, res = response) => {
+        try {
+            const { id } = req.body;
 
-module.exports = { createProduct, getProducts, getPictures, updateName, updatePrice, updateImage}
+            await Product.update({ isActive: false }, { where: { id } });
+            return res.status(200).json({
+                success: true,
+                message: "Product deactivated"
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
+module.exports = { createProduct, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct}
