@@ -23,7 +23,7 @@ Address.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    adress: {
+    address: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -41,7 +41,7 @@ Address.init({
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Adress'
+    modelName: 'Address'
 });
 
 module.exports = Address;

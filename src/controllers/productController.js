@@ -21,6 +21,14 @@ const createProduct = async (req = request, res = response) => {
                     message: "Invalid input"
                 });
             }
+
+            const existProduct = await Product.findOne({ where: { name: name } });
+            if (existProduct) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Product already exists"
+                });
+            }
             
             const product = await Product.create({
                 name: name,
@@ -31,7 +39,7 @@ const createProduct = async (req = request, res = response) => {
             });
             return res.status(201).json({
                 success: true,
-                product
+                data: product
             });
         } catch (error) {
             return res.status(500).json({
@@ -69,68 +77,68 @@ const getPictures = async(req = request, res = response) => {
         }
     }
 const updateName = async(req,res) => {
-      try{
-        const { id, name } = req.body;
-        if(!isAlphaNumericSpaceGuionPunto(name)){
+    try{
+    const { id, name } = req.body;
+    if(!isAlphaNumericSpaceGuionPunto(name)){
+        return res.status(400).json({
+            success: false,
+            message: "Invalid input"
+        });
+    }
+    const product = await Product.update({name}, {where: {id}});
+    return res.status(200).json({
+        success: true,
+        product
+    });
+    }
+    catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+const updatePrice = async(req,res) => {
+    try {
+        const { id, price } = req.body;
+        if(!onlyPositiveIntegers(price)){
             return res.status(400).json({
                 success: false,
                 message: "Invalid input"
             });
         }
-        const product = await Product.update({name}, {where: {id}});
+        const product = await Product.update({price}, {where: {id}});
         return res.status(200).json({
             success: true,
             product
         });
-      }
-        catch(error){
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
-
-    const updatePrice = async(req,res) => {
-        try {
-            const { id, price } = req.body;
-            if(!onlyPositiveIntegers(price)){
-                return res.status(400).json({
-                    success: false,
-                    message: "Invalid input"
-                });
-            }
-            const product = await Product.update({price}, {where: {id}});
-            return res.status(200).json({
-                success: true,
-                product
-            });
-        } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
+}
+const updateImage = async(req,res) => {
+    try {
+        const { id, image } = req.body;
+        const product = await Product.update({image}, {where: {id}});
+        return res.status(200).json({
+            success: true,
+            product
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
-    const updateImage = async(req,res) => {
-        try {
-            const { id, image } = req.body;
-            const product = await Product.update({image}, {where: {id}});
-            return res.status(200).json({
-                success: true,
-                product
-            });
-        } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
 }
 const deactivateProduct = async (req = request, res = response) => {
         try {
             const { id } = req.body;
-
+            
             await Product.update({ isActive: false }, { where: { id } });
             return res.status(200).json({
                 success: true,

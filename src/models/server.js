@@ -5,6 +5,8 @@ const dbConnect = require('../database/connection');
 const User = require('../models/user');
 const Rol = require('../models/rol');
 const fileUpload = require('express-fileupload');
+const Category= require('./category');
+const Product = require('./product');
 
 class Server {
     constructor() {
@@ -16,7 +18,9 @@ class Server {
             auth: '/api/auth',
             user: '/api/user',
             rol: '/api/rol',
-            upload: '/api/upload'
+            upload: '/api/upload',
+            category: '/api/category',
+            product: '/api/product'
         }
 
         // Método para conectar con la base de datos
@@ -37,6 +41,8 @@ class Server {
             //  Evita que las tablas sean creadas si no existe la base de datos
             await Rol.sync({ force: false });
             await User.sync({ force: false });
+            await Category.sync({ force: false });
+            await Product.sync({ force: false });
             console.log('Base de datos conectada correctamente');
         } catch (error) {
             console.error('Error al conectar con la base de datos', error);
@@ -68,6 +74,8 @@ class Server {
         this.app.use(this.paths.auth, require('../routes/authRoute'));
         this.app.use(this.paths.user, require('../routes/userRoute'));
         this.app.use(this.paths.upload, require('../routes/uploadRoute'));
+        this.app.use(this.paths.category, require('../routes/categoryRoute'));
+        this.app.use(this.paths.product, require('../routes/productRoute'));
     }
 
     listen() {
