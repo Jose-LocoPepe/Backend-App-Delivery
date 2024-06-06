@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 const createAddress = async (req = request, res = response) => {
     try {
-        const { userID }= req.params;
+        const { id }= req.params;
 
         const { name, street, neighborhood, longitude, latitude } = req.body;
         
@@ -13,14 +13,9 @@ const createAddress = async (req = request, res = response) => {
             street,
             neighborhood,
             longitude,
-            latitude
+            latitude,
+            user_id: id
         });
-
-        // Asociar la dirección al usuario
-        const user = await User.findByPk(userID);
-        await newAddress.setUser(user);
-
-        
 
 
         return res.status(201).json({
@@ -29,22 +24,29 @@ const createAddress = async (req = request, res = response) => {
         });
     }
     catch (error) {
+        console.log(error);
         return res.status(500).json({
             success: false,
             message: error.message
+            
         });
     }
 }
 
 const getAddress = async (req = request, res = response) => {
     try {
-        const address = await Address.findAll();
+        const { id } = req.params;
+        const user = await User.findByPk(id, {
+            include: {
+                model: Address
+            }
+        });
+
         return res.status(200).json({
             success: true,
-            address
+            data: user.Addresses
         });
-    }
-    catch (error) {
+    } catch (error) {
         return res.status(500).json({
             success: false,
             message: error.message

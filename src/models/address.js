@@ -2,15 +2,6 @@ const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 const User = require('./user');
 class Address extends Model {
-    static id;
-    static name;
-    static street;
-    static neighborhood;
-    static longitude;
-    static latitude;
-    static createdAt;
-    static updatedAt;
-    static user_id;
 
 }
 
@@ -65,7 +56,7 @@ Address.init({
     modelName: 'Address',
     timestamps: true
 });
+Address.user_id = Address.belongsTo(require ('./product'), {foreignKey: 'user_id'});
 
-// clave foranea
-//Address.User = Address.belongsTo(User, { foreignKey: 'user_id' });
+
 module.exports = Address;
