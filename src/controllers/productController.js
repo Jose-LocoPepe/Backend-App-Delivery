@@ -1,26 +1,33 @@
 const { request, response } = require("express");
+
 const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require("../helpers/utils.js");
+
 // Models
-const Product = require("../models/product")
+const Product = require("../models/product");
 const ProductImage = require("../models/productsimage");
 
 const createProduct = async (req = request, res = response) => {
     try {
         const { name, description, price, categoryId } = req.body;
 
+
         if (!isAlphaNumericSpaceGuionPunto(name), !isAlphaNumericSpaceGuionPunto(description)) {
+
             return res.status(400).json({
                 success: false,
                 message: "Invalid input"
             });
         }
 
+
         if (!onlyPositiveIntegers(price)) {
+
             return res.status(400).json({
                 success: false,
                 message: "Invalid input"
             });
         }
+
 
         const existProduct = await Product.findOne({ where: { name: name } });
         if (existProduct) {
@@ -70,12 +77,14 @@ const getProductByID = async (req = request, res = response) => {
     try {
         const { id } = req.params;
         const product = await Product.findOne({ where: { id: id } });
+
         if (!product) {
             return res.status(404).json({
                 success: false,
                 message: "Product not found"
             });
         }
+
         return res.status(200).json({
             success: true,
             data: product
@@ -96,6 +105,7 @@ const getProducts = async (req = request, res = response) => {
             success: true,
             data: products
 
+
         });
     } catch (error) {
         return res.status(500).json({
@@ -103,6 +113,7 @@ const getProducts = async (req = request, res = response) => {
             message: error.message
         });
     }
+
 }
 
 const getPictures = async (req = request, res = response) => {
@@ -120,6 +131,7 @@ const getPictures = async (req = request, res = response) => {
     }
 }
 const updateName = async (req, res) => {
+
     try {
         const { id, name } = req.body;
         if (!isAlphaNumericSpaceGuionPunto(name)) {
@@ -133,6 +145,7 @@ const updateName = async (req, res) => {
             success: true,
             product
         });
+
     }
     catch (error) {
         return res.status(500).json({
@@ -143,6 +156,7 @@ const updateName = async (req, res) => {
 }
 
 const updatePrice = async (req, res) => {
+
     try {
         const { id, price } = req.body;
         if (!onlyPositiveIntegers(price)) {
@@ -161,6 +175,7 @@ const updatePrice = async (req, res) => {
             success: false,
             message: error.message
         });
+
     }
 }
 const updateImage = async (req, res) => {
@@ -182,6 +197,7 @@ const deactivateProduct = async (req = request, res = response) => {
     try {
         const { id } = req.body;
 
+
         await Product.update({ isActive: false }, { where: { id } });
         return res.status(200).json({
             success: true,
@@ -193,6 +209,8 @@ const deactivateProduct = async (req = request, res = response) => {
             message: error.message
         });
     }
+
 }
 
 module.exports = { createProduct,getProductByID, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
+
