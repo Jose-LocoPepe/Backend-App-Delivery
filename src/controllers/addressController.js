@@ -1,45 +1,58 @@
-import Address from "../models/address.js";
-import sequelize from "sequelize";
+const { request, response } = require("express");
+const Address = require( "../models/address");
+const User = require("../models/user");
 
+const createAddress = async (req = request, res = response) => {
+    try {
+        const { userID }= req.params;
 
-const addressController = {
-    async createAdress(req, res) {
-        try {
-            const { userId, address, street, complement, reference } = req.body;
-            const new_adress = await Address.create({
-                userId,
-                address,
-                street,
-                complement,
-                reference
-            });
-            return res.status(201).json({
-                success: true,
-                new_adress
-            });
-        } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
-    },
-    async getAddress(req, res) {
+        const { name, street, neighborhood, longitude, latitude } = req.body;
         
-        try {
-            const adress = await Address.findAll();
-            return res.status(200).json({
-                success: true,
-                adress
-            });
-        } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
-        }
-    },
-    
-};
+        const newAddress = await Address.create({
+            name,
+            street,
+            neighborhood,
+            longitude,
+            latitude
+        });
 
-export default addressController;
+        // Asociar la dirección al usuario
+        const user = await User.findByPk(userID);
+        await newAddress.setUser(user);
+
+        
+
+
+        return res.status(201).json({
+            success: true,
+            data: newAddress
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+const getAddress = async (req = request, res = response) => {
+    try {
+        const address = await Address.findAll();
+        return res.status(200).json({
+            success: true,
+            address
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+module.exports = {
+    createAddress,
+    getAddress
+}

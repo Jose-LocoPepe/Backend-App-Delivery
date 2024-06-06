@@ -11,6 +11,7 @@ const Rol = require('../models/rol');
 const Category= require('./category');
 const Product = require('./product');
 const ProductImage = require('./product');
+const Address = require('./address');
 
 class Server {
     constructor() {

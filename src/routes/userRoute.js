@@ -1,7 +1,7 @@
 const { Router, request, response, next } = require("express");
 const { check } = require("express-validator");
 const ProductController = require("../controllers/productController")
-const CategoryController = require("../controllers/categoryController")
+const AddressController = require("../controllers/addressController")
 
 //Controllers
 //const UserController = require("../controllers/userController");
@@ -31,14 +31,16 @@ router.put('/:id',[
 ],putUser)
 
 router.patch('/product/:id/name',ProductController.updateName);
-/*
-router.get('/getProducts',ProductController.getProducts);
-router.get('/getPictures',ProductController.getPictures);
-router.post('/deleteProduct', ProductController.deactivateProduct);
-router.post('/createProduct', ProductController.createProduct);
 
-router.get('/getCategory', CategoryController.getCategory);
-router.post('/createCategory', CategoryController.createCategory);
-router.post('/deleteCategory', CategoryController.deactivateCategory);*/
+
+
+// Rutas de dirección
+router.post('/:id/address/create',[
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('street', 'La calle es obligatoria').not().isEmpty(),
+    check('neighborhood', 'El barrio es obligatorio').not().isEmpty()
+],AddressController.createAddress);
+
+router.get('/:id/address/get',AddressController.getAddress);
 
 module.exports = router;
