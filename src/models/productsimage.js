@@ -2,8 +2,7 @@ const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
 class ProductImage extends Model {
-    static id;
-    static image;
+    
 }
 
 ProductImage.init({
@@ -14,23 +13,31 @@ ProductImage.init({
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
+    },
+    productId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Products', // Nombre de la tabla referenciada
+            key: 'id'
+        }
     },
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: new Date()
+        defaultValue: DataTypes.NOW
     },
     updatedAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: new Date()
+        defaultValue: DataTypes.NOW
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'ProductImage'
+    modelName: 'ProductImage',
+    timestamps: true
 });
-
 ProductImage.ProductId = ProductImage.belongsTo(require ('./product'), {foreignKey: 'productId'});
 
 module.exports = ProductImage;

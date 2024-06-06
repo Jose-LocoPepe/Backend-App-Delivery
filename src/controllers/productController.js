@@ -1,5 +1,7 @@
 const { request, response } = require("express");
-const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require("../helpers/utils");
+
+const { isAlphaNumericSpaceGuionPunto, onlyPositiveIntegers } = require("../helpers/utils.js");
+
 // Models
 const Product = require("../models/product");
 const ProductImage = require("../models/productsimage");
@@ -8,30 +10,60 @@ const createProduct = async (req = request, res = response) => {
     try {
         const { name, description, price, categoryId } = req.body;
 
-        if (!isAlphaNumericSpaceGuionPunto(name) || !isAlphaNumericSpaceGuionPunto(description)) {
+
+        if (!isAlphaNumericSpaceGuionPunto(name), !isAlphaNumericSpaceGuionPunto(description)) {
+
             return res.status(400).json({
                 success: false,
                 message: "Invalid input"
             });
         }
 
+
         if (!onlyPositiveIntegers(price)) {
+
             return res.status(400).json({
                 success: false,
                 message: "Invalid input"
+            });
+        }
+
+
+        const existProduct = await Product.findOne({ where: { name: name } });
+        if (existProduct) {
+            return res.status(400).json({
+                success: false,
+                message: "Product already exists"
             });
         }
 
         const product = await Product.create({
-            name,
-            description,
-            price,
-            categoryId
-        });
+            name: name,
+            description: description,
+            price: price,
+            categoryId: categoryId,
 
+        });
+        // Crear 3 imagenes por defecto
+        const productImage1 = await ProductImage.create({
+            productId: product.id,
+            image: null
+        });
+        const productImage2 = await ProductImage.create({
+            productId: product.id,
+            image: null
+        });
+        const productImage3 = await ProductImage.create({
+            productId: product.id,
+            image: null
+        });
         return res.status(201).json({
             success: true,
-            product
+            data: product,
+            image1: productImage1,
+            image2: productImage2,
+            image3: productImage3
+
         });
     } catch (error) {
         return res.status(500).json({
@@ -39,14 +71,41 @@ const createProduct = async (req = request, res = response) => {
             message: error.message
         });
     }
-};
+}
+
+const getProductByID = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findOne({ where: { id: id } });
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: product
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
 
 const getProducts = async (req = request, res = response) => {
     try {
         const products = await Product.findAll({ where: { isActive: true } });
+        
         return res.status(200).json({
             success: true,
-            products
+            data: products
+
+
         });
     } catch (error) {
         return res.status(500).json({
@@ -54,7 +113,8 @@ const getProducts = async (req = request, res = response) => {
             message: error.message
         });
     }
-};
+
+}
 
 const getPictures = async (req = request, res = response) => {
     try {
@@ -69,62 +129,9 @@ const getPictures = async (req = request, res = response) => {
             message: error.message
         });
     }
-};
+}
+const updateName = async (req, res) => {
 
-const updateProduct = async (req = request, res = response) => {
-    const { id } = req.params;
-    const { name, description, price, categoryId, isActive } = req.body;
-
-    try {
-        if (name && !isAlphaNumericSpaceGuionPunto(name)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid input"
-            });
-        }
-
-        if (description && !isAlphaNumericSpaceGuionPunto(description)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid input"
-            });
-        }
-
-        if (price && !onlyPositiveIntegers(price)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid input"
-            });
-        }
-
-        const product = await Product.update(
-            { name, description, price, categoryId, isActive },
-            { where: { id } }
-        );
-
-        if (!product) {
-            return res.status(404).json({
-                success: false,
-                message: "Product not found"
-            });
-        }
-
-        const updatedProduct = await Product.findOne({ where: { id } });
-
-        return res.status(200).json({
-            success: true,
-            data: updatedProduct,
-            message: "Product updated successfully"
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-const updateName = async (req = request, res = response) => {
     try {
         const { id, name } = req.body;
         if (!isAlphaNumericSpaceGuionPunto(name)) {
@@ -138,15 +145,18 @@ const updateName = async (req = request, res = response) => {
             success: true,
             product
         });
-    } catch (error) {
+
+    }
+    catch (error) {
         return res.status(500).json({
             success: false,
             message: error.message
         });
     }
-};
+}
 
-const updatePrice = async (req = request, res = response) => {
+const updatePrice = async (req, res) => {
+
     try {
         const { id, price } = req.body;
         if (!onlyPositiveIntegers(price)) {
@@ -165,10 +175,10 @@ const updatePrice = async (req = request, res = response) => {
             success: false,
             message: error.message
         });
-    }
-};
 
-const updateImage = async (req = request, res = response) => {
+    }
+}
+const updateImage = async (req, res) => {
     try {
         const { id, image } = req.body;
         const product = await Product.update({ image }, { where: { id } });
@@ -182,11 +192,12 @@ const updateImage = async (req = request, res = response) => {
             message: error.message
         });
     }
-};
-
+}
 const deactivateProduct = async (req = request, res = response) => {
     try {
         const { id } = req.body;
+
+
         await Product.update({ isActive: false }, { where: { id } });
         return res.status(200).json({
             success: true,
@@ -198,15 +209,8 @@ const deactivateProduct = async (req = request, res = response) => {
             message: error.message
         });
     }
-};
 
-module.exports = {
-    createProduct,
-    getProducts,
-    getPictures,
-    updateProduct,
-    updateName,
-    updatePrice,
-    updateImage,
-    deactivateProduct
-};
+}
+
+module.exports = { createProduct,getProductByID, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
+

@@ -6,6 +6,7 @@ class Category extends Model {
     static name;
     static description;
     static image;
+    static isActive;
 }
 
 Category.init({
@@ -36,15 +37,14 @@ Category.init({
         type: DataTypes.BOOLEAN,
         defaultValue: true
     
-    }
-    /*
+    },
     image: {
-        type: Sequelize.BLOB,
+        type: DataTypes.STRING,
         allowNull: true
-      }*/
+    }
 }, {
     sequelize: dbConnect,
-    modelName: 'Category'
+    modelName: 'Categories'
 });
 
 module.exports = Category;

@@ -1,5 +1,7 @@
 const { request, response } = require("express");
 const User = require("../models/user");
+const Category = require("../models/category");
+const ProductImage = require("../models/productsimage");
 const cloudinary = require('cloudinary').v2;
 
 const updateImageCloudinary = async (req = request, res = response) =>{
@@ -14,6 +16,24 @@ const updateImageCloudinary = async (req = request, res = response) =>{
                     return res.status(400).json({
                         success: false,
                         message: "Usuario no existe"
+                    });
+                }
+                break;
+            case 'categories':
+                model = await Category.findByPk(id);
+                if(!model){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Categoria no existe"
+                    });
+                }
+                break;
+            case 'productsImages':
+                model = await ProductImage.findByPk(id);
+                if(!model){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Imagen no existe"
                     });
                 }
                 break;
@@ -36,21 +56,21 @@ const updateImageCloudinary = async (req = request, res = response) =>{
 
         // Extract temporal image
         const { tempFilePath } = req.files.archive;
-        console.log(tempFilePath);
+        console.log("Archivo Tempoal:",tempFilePath);
 
         // upload to cloudinary
         const { secure_url } = await cloudinary.uploader.upload(tempFilePath, {
             folder: `DeliveryImg/${collection}`
         });
 
-        console.log(secure_url);
+        console.log("Link:", secure_url);
         // Update image to user
-        model.imagen = secure_url;
+        model.image = secure_url;
         await model.save();
 
         res.status(201).json({
             success: true,
-            data: model.imagen,
+            data: model.image,
             'message': 'Imagen actualizada con exito'
         });
     } catch (error) {

@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         unique: true,
         type: Sequelize.STRING
       },
@@ -22,6 +22,14 @@ module.exports = {
           model: 'Products',
           key: 'id'
         }
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       
     });
