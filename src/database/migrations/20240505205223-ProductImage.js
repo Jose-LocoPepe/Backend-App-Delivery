@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         unique: true,
         type: Sequelize.STRING
       },

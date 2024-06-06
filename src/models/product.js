@@ -1,15 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class Product extends Model {
-    static id;
-    static name;
-    static description;
-    static price;
-    static categoryId;
-    static createdAt;
-    static updatedAt;
-}
+class Product extends Model {}
 
 Product.init({
     id: {
@@ -26,7 +18,7 @@ Product.init({
         allowNull: false
     },
     price: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT, // Cambio a FLOAT para precios
         allowNull: false
     },
     categoryId: {
@@ -36,21 +28,24 @@ Product.init({
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: new Date()
+        defaultValue: DataTypes.NOW
     },
     updatedAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: new Date()
+        defaultValue: DataTypes.NOW
     },
-    isActive:{
+    isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Product'
+    modelName: 'Product',
+    timestamps: true
 });
+
+// Categoria
 Product.Category = Product.belongsTo(require ('./category'), {foreignKey: 'categoryId'});
 
 module.exports = Product;

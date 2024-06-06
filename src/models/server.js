@@ -2,11 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
 const dbConnect = require('../database/connection');
+const fileUpload = require('express-fileupload');
+require('./associations'); // Asegúrate de que la ruta sea correcta
+
+
 const User = require('../models/user');
 const Rol = require('../models/rol');
-const fileUpload = require('express-fileupload');
 const Category= require('./category');
 const Product = require('./product');
+const ProductImage = require('./product');
 
 class Server {
     constructor() {
@@ -43,6 +47,7 @@ class Server {
             await User.sync({ force: false });
             await Category.sync({ force: false });
             await Product.sync({ force: false });
+            await ProductImage.sync({ force: false });
             console.log('Base de datos conectada correctamente');
         } catch (error) {
             console.error('Error al conectar con la base de datos', error);

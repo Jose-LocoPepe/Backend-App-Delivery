@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const User = require("../models/user");
 const Category = require("../models/category");
+const ProductImage = require("../models/productsimage");
 const cloudinary = require('cloudinary').v2;
 
 const updateImageCloudinary = async (req = request, res = response) =>{
@@ -24,6 +25,15 @@ const updateImageCloudinary = async (req = request, res = response) =>{
                     return res.status(400).json({
                         success: false,
                         message: "Categoria no existe"
+                    });
+                }
+                break;
+            case 'productsImages':
+                model = await ProductImage.findByPk(id);
+                if(!model){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Imagen no existe"
                     });
                 }
                 break;
