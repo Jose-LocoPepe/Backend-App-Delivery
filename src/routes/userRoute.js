@@ -1,4 +1,4 @@
-const { Router, request, response, next } = require("express");
+const { Router } = require("express");
 const { check } = require("express-validator");
 const ProductController = require("../controllers/productController")
 const AddressController = require("../controllers/addressController")
@@ -7,28 +7,31 @@ const AddressController = require("../controllers/addressController")
 //const UserController = require("../controllers/userController");
 
 // Middlewares
+
 const { validateFields } = require("../middlewares/validate-fields"); 
 const { putUser } = require("../controllers/userController");
 
+
 const router = Router();
 
-//  GETS  //
+//  User Routes  //
 
 router.get("/", async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await UserController.getUsers();
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json(error);
     }
 });
 
-router.put('/:id',[
+router.put('/:id', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('lastName', 'El apellido es obligatorio').not().isEmpty(),
     check('phone', 'El telefono es obligatorio').not().isEmpty(),
     validateFields
-],putUser)
+], UserController.putUser);
+
 
 router.patch('/product/:id/name',ProductController.updateName);
 
@@ -42,5 +45,8 @@ router.post('/:id/address/create',[
 ],AddressController.createAddress);
 
 router.get('/:id/address/get',AddressController.getAddress);
+router.get('/getCategory', CategoryController.getCategory);
+router.post('/createCategory', CategoryController.createCategory);
+router.post('/deleteCategory', CategoryController.deactivateCategory);
 
 module.exports = router;
