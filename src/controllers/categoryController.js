@@ -70,6 +70,7 @@ const getCategories = async (req = request, res = response) => {
 
         res.status(200).json({
             success: true,
+            categories: categories,
             data: categories
         });
     } catch (error) {
