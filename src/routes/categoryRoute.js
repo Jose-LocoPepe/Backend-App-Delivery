@@ -6,7 +6,7 @@ const { validateFields } = require("../middlewares/validate-fields");
 const { validateJWT } = require("../middlewares/validate-jwt");
 const validateAdmin = require("../middlewares/validate-admin");
 
-const { createCategory, getCategories,  deactivateCategory, updateCategory } = require("../controllers/categoryController");
+const { createCategory, getCategories,  deactivateCategory, updateCategory, getCategoryById } = require("../controllers/categoryController");
 
 
 
@@ -39,6 +39,11 @@ router.put('/:id', [
     validateFields
 ], updateCategory);
 
+// Get category by id
+router.get('/get/:id', [
+    validateJWT,
+    validateFields
+], getCategoryById);
 
 // Delete category
 router.post('/deactivate', [

@@ -55,6 +55,31 @@ const createCategory = async (req = request, res = response) => {
 
     }
 }
+const getCategoryById = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+
+        const category = await Category.findByPk(id);
+
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found"
+            });
+        }
+        
+        res.status(200).json({
+            success: true,
+            data: category
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 
 const getCategories = async (req = request, res = response) => {
     try {
@@ -137,4 +162,4 @@ const updateCategory = async (req = request, res = response) => {
         });
     }
 }
-module.exports = { createCategory, getCategories, deactivateCategory , updateCategory};
+module.exports = { createCategory, getCategories, deactivateCategory , updateCategory, getCategoryById};

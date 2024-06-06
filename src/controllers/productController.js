@@ -65,9 +65,33 @@ const createProduct = async (req = request, res = response) => {
         });
     }
 }
+
+const getProductByID = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findOne({ where: { id: id } });
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: product
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 const getProducts = async (req = request, res = response) => {
     try {
         const products = await Product.findAll({ where: { isActive: true } });
+        
         return res.status(200).json({
             success: true,
             data: products
@@ -171,4 +195,4 @@ const deactivateProduct = async (req = request, res = response) => {
     }
 }
 
-module.exports = { createProduct, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
+module.exports = { createProduct,getProductByID, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
