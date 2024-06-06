@@ -6,11 +6,12 @@ const dbConnect = require('../database/connection.js');
 
 class Address extends Model {
     static id;
-    static userId;
-    static address;
+    static name;
     static street;
-    static complement;
-    static reference;
+    static neighborhood;
+    static longitude;
+    static latitude;
+
 }
 
 Address.init({
@@ -19,11 +20,7 @@ Address.init({
         primaryKey: true,
         autoIncrement: true
     },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    address: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -31,17 +28,35 @@ Address.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    complement: {
+    neighborhood: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
-    reference: {
+    
+    longitude: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
+    },
+    latitude: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'Address'
+    modelName: 'Address',
+    timestamps: true
 });
 
+// clave foranea
+Address.User = Address.belongsTo(require('./user'), { foreignKey: 'user_id' });
 module.exports = Address;
