@@ -1,7 +1,9 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
+const UserController = require("../controllers/userController");
 const ProductController = require("../controllers/productController")
 const AddressController = require("../controllers/addressController")
+
 
 //Controllers
 //const UserController = require("../controllers/userController");
@@ -45,8 +47,6 @@ router.post('/:id/address/create',[
 ],AddressController.createAddress);
 
 router.get('/:id/address/get',AddressController.getAddress);
-router.get('/getCategory', CategoryController.getCategory);
-router.post('/createCategory', CategoryController.createCategory);
-router.post('/deleteCategory', CategoryController.deactivateCategory);
+
 
 module.exports = router;
