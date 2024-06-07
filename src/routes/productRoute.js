@@ -6,7 +6,7 @@ const { validateFields } = require("../middlewares/validate-fields");
 const { validateJWT } = require("../middlewares/validate-jwt");
 const validateAdmin = require("../middlewares/validate-admin");
 
-const { createProduct, getProductByID, getProducts,deactivateProduct, getPictures} = require("../controllers/productController");
+const { createProduct,updateProduct, getProductByID, getProducts,deactivateProduct, getPictures} = require("../controllers/productController");
 const router = Router();
 
 
@@ -19,6 +19,13 @@ router.post('/create', [
     validateAdmin,
     validateFields
 ], createProduct);
+router.put('/:id', [
+    check('name', 'Name is required').not().isEmpty(),
+    check('description', 'Description is required').not().isEmpty(),
+    validateJWT,
+    validateAdmin,
+    validateFields
+], updateProduct);
 
 router.get('/get/:id',[
     validateJWT,

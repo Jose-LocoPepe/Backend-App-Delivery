@@ -84,11 +84,18 @@ const getProductByID = async (req = request, res = response) => {
                 message: "Product not found"
             });
         }
-
-        return res.status(200).json({
-            success: true,
-            data: product
-        });
+ //retornar las 3 id de imagenes del producto, image1,image2,image3
+ const productImages = await ProductImage.findAll({ where: { productId: id } });
+ const image1 = productImages[0];
+ const image2 = productImages[1];
+ const image3 = productImages[2];
+ return res.status(200).json({
+     success: true,
+     data: product,
+     image1:image1,
+     image2:image2,
+     image3:image3
+ });
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -122,6 +129,33 @@ const getPictures = async (req = request, res = response) => {
         return res.status(200).json({
             success: true,
             productimages
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+const updateProduct = async (req = request, res = response) => {
+    try {
+        const { id, name, description, price, categoryId } = req.body;
+        if (!isAlphaNumericSpaceGuionPunto(name), !isAlphaNumericSpaceGuionPunto(description)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid input"
+            });
+        }
+        if (!onlyPositiveIntegers(price)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid input"
+            });
+        }
+        const product = await Product.update({ name, description, price, categoryId }, { where: { id } });
+        return res.status(200).json({
+            success: true,
+            data:product
         });
     } catch (error) {
         return res.status(500).json({
@@ -212,5 +246,5 @@ const deactivateProduct = async (req = request, res = response) => {
 
 }
 
-module.exports = { createProduct,getProductByID, getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
+module.exports = { createProduct,getProductByID, updateProduct,getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
 
