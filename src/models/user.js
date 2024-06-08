@@ -39,7 +39,7 @@ User.init({
 });
 User.Rol = User.belongsTo(require ('./rol'), {foreignKey: 'rol_id'});
 
-User.hasMany(require("./address"), { foreignKey: 'user_id' });
+// User.hasMany(require("./address"), { foreignKey: 'user_id' });
 
 User.prototype.toJSON = function () {
     const user = this.get();

@@ -61,7 +61,7 @@ Address.init({
     modelName: 'Address',
     timestamps: true
 });
-Address.user_id = Address.belongsTo(require ('./user'), {foreignKey: 'user_id'});
+// Address.user_id = Address.belongsTo(require ('./user'), {foreignKey: 'user_id'});
 // Address.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Address;

@@ -49,6 +49,7 @@ class Server {
             await Category.sync({ force: false });
             await Product.sync({ force: false });
             await ProductImage.sync({ force: false });
+            await Address.sync({ force: false });
             console.log('Base de datos conectada correctamente');
         } catch (error) {
             console.error('Error al conectar con la base de datos', error);
