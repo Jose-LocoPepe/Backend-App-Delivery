@@ -1,7 +1,13 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class Product extends Model {}
+class Product extends Model {
+    static id;
+    static name;
+    static description;
+    static price;
+    static isActive;
+}
 
 Product.init({
     id: {
