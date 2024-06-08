@@ -35,6 +35,11 @@ router.put('/:id', [
 ], UserController.putUser);
 
 
+router.put('/:id/password',[check('currentPassword', 'La contraseña actual es obligatoria').not().isEmpty(),
+    check('newPassword', 'La nueva contraseña es obligatoria').not().isEmpty(),
+    validateFields], UserController.changePassword);
+
+
 router.patch('/product/:id/name',ProductController.updateName);
 
 
