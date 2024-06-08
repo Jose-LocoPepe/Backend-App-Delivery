@@ -4,22 +4,30 @@ const User = require("../models/user");
 
 const createAddress = async (req = request, res = response) => {
     try {
-        const { id }= req.params;
-
+        const { id } = req.params;
         const { name, street, neighborhood, longitude, latitude } = req.body;
-        
-        const newAddress = await Address.create({
-            name,
-            street,
-            neighborhood,
-            longitude,
-            latitude
-        });
+        const user = await User.findOne({ where: { id: id } });
 
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Usuario no encontrado"
+            });
+        }
+
+        const newAddress = await Address.create({
+            name: name,
+            street: street,
+            neighborhood: neighborhood,
+            longitude: longitude,
+            latitude: latitude,
+            user_id: user.id
+        });
 
         return res.status(201).json({
             success: true,
-            data: newAddress
+            data: newAddress,
+            message: "Dirección creada correctamente"
         });
     }
     catch (error) {
@@ -27,7 +35,6 @@ const createAddress = async (req = request, res = response) => {
         return res.status(500).json({
             success: false,
             message: error.message
-            
         });
     }
 }
