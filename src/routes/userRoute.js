@@ -48,7 +48,10 @@ router.patch('/product/:id/name',ProductController.updateName);
 router.post('/:id/address/create',[
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('street', 'La calle es obligatoria').not().isEmpty(),
-    check('neighborhood', 'El barrio es obligatorio').not().isEmpty()
+    check('neighborhood', 'El barrio es obligatorio').not().isEmpty(),
+    check('longitude', 'La longitud es obligatoria').not().isEmpty(),
+    check('latitude', 'La latitud es obligatoria').not().isEmpty(),
+    validateFields
 ],AddressController.createAddress);
 
 router.get('/:id/address/get',AddressController.getAddress);
