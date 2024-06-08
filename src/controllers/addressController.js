@@ -13,8 +13,7 @@ const createAddress = async (req = request, res = response) => {
             street,
             neighborhood,
             longitude,
-            latitude,
-            user_id: id
+            latitude
         });
 
 

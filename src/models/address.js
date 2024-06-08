@@ -2,7 +2,12 @@ const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 const User = require('./user');
 class Address extends Model {
-
+    static id;
+    static name;
+    static street;
+    static neighborhood;
+    static longitude;
+    static latitude;
 }
 
 Address.init({
