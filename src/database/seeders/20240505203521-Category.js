@@ -3,6 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    try {
     await queryInterface.bulkInsert('Categories', [
       {
         name: 'Fruits',
@@ -14,7 +15,7 @@ module.exports = {
       },
       {
         name: 'Vegetables',
-        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717983991/DeliveryImg/categories/xuqvgsxvs8n58flnzva2.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984131/DeliveryImg/categories/t1magon4yams2j9tawqv.webp',
         description: 'Green and healthy vegetables',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -22,7 +23,7 @@ module.exports = {
       },
       {
         name: 'Dairy',
-        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717983991/DeliveryImg/categories/xuqvgsxvs8n58flnzva2.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984199/DeliveryImg/categories/fqjlncu0oceguwrhayxu.jpg',
         description: 'Milk, cheese, and other dairy products',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -46,7 +47,7 @@ module.exports = {
       },
       {
         name: 'Seafood',
-        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984281/DeliveryImg/categories/xo2i5dvqbx6flgzdzv3b.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984348/DeliveryImg/categories/pzrjp88kh6vv9oq9zmw3.webp',
         description: 'Fresh seafood from the ocean',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -85,6 +86,9 @@ module.exports = {
         isActive: true
       }
     ], {});
+  } catch (error) {
+    console.error('Error en la inserción masiva:', error);
+  }
   },
 
   async down(queryInterface, Sequelize) {
