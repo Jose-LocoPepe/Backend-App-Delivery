@@ -12,7 +12,7 @@ module.exports = {
         latitude: '19.432608',
         createdAt: new Date(),
         updatedAt: new Date(),
-        user_id: 1 
+        user_id: 4
       },
       {
         name: 'Oficina',
@@ -22,7 +22,7 @@ module.exports = {
         latitude: '19.432607',
         createdAt: new Date(),
         updatedAt: new Date(),
-        user_id: 2 
+        user_id: 4
       },
       {
         name: 'Casa de Campo',
@@ -32,7 +32,7 @@ module.exports = {
         latitude: '19.432606',
         createdAt: new Date(),
         updatedAt: new Date(),
-        user_id: 1 
+        user_id: 4
       }
     ], {});
   },
