@@ -11,6 +11,5 @@ ProductImage.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 Product.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
 Category.hasMany(Product, { foreignKey: 'categoryId' });
 
-
 User.hasMany(require("./address"), { foreignKey: 'user_id' });
 Address.belongsTo(require ('./user'), {foreignKey: 'user_id'});

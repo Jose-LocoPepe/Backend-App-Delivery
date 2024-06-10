@@ -87,18 +87,72 @@ const getProductByID = async (req = request, res = response) => {
                 message: "Product not found"
             });
         }
- //retornar las 3 id de imagenes del producto, image1,image2,image3
- const productImages = await ProductImage.findAll({ where: { productId: id } });
- const image1 = productImages[0];
- const image2 = productImages[1];
- const image3 = productImages[2];
- return res.status(200).json({
-     success: true,
-     data: product,
-     image1:image1,
-     image2:image2,
-     image3:image3
- });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+// obtain a first image of a product
+const getFirstProductImage = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const productImage = await ProductImage.findOne({ where: { productId: id } });
+        return res.status(200).json({
+            success: true,
+            data: productImage
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+const getProductsImages = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const productImages = await ProductImage.findAll({ where: { productId: id } });
+        return res.status(200).json({
+            success: true,
+            data: productImages 
+        }); 
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+// update product images (3 images)
+const updateProductImages = async (req = request, res = response) => {
+    try {
+        const { id, image1, image2, image3 } = req.body;
+        const product = await Product.findOne({ where: { id } });
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+        const productImages = await ProductImage.findAll({ where: { productId: id } });
+        if (productImages.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Product images not found"
+            });
+        }
+        // Update images
+        await ProductImage.update({ image: image1 }, { where: { productId: id, id: productImages[0].id } });
+        await ProductImage.update({ image: image2 }, { where: { productId: id, id: productImages[1].id } });
+        await ProductImage.update({ image: image3 }, { where: { productId: id, id: productImages[2].id } });
+        return res.status(200).json({
+            success: true,
+            message: "Product images updated"
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -215,21 +269,7 @@ const updatePrice = async (req, res) => {
 
     }
 }
-const updateImage = async (req, res) => {
-    try {
-        const { id, image } = req.body;
-        const product = await Product.update({ image }, { where: { id } });
-        return res.status(200).json({
-            success: true,
-            product
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-}
+
 const deactivateProduct = async (req = request, res = response) => {
     try {
         const { id } = req.body;
@@ -249,5 +289,5 @@ const deactivateProduct = async (req = request, res = response) => {
 
 }
 
-module.exports = { createProduct,getProductByID, updateProduct,getProducts, getPictures, updateName, updatePrice, updateImage, deactivateProduct }
+module.exports = { createProduct,getProductByID,getFirstProductImage, getProductsImages, updateProduct,getProducts, getPictures, updateName, updatePrice, deactivateProduct }
 
