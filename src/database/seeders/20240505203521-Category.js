@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert('Categories', [
       {
         name: 'Fruits',
-        image: 'fruits.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717983991/DeliveryImg/categories/xuqvgsxvs8n58flnzva2.jpg',
         description: 'Fresh and delicious fruits',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -14,7 +14,7 @@ module.exports = {
       },
       {
         name: 'Vegetables',
-        image: 'vegetables.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717983991/DeliveryImg/categories/xuqvgsxvs8n58flnzva2.jpg',
         description: 'Green and healthy vegetables',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         name: 'Dairy',
-        image: 'dairy.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717983991/DeliveryImg/categories/xuqvgsxvs8n58flnzva2.jpg',
         description: 'Milk, cheese, and other dairy products',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         name: 'Bakery',
-        image: 'bakery.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984239/DeliveryImg/categories/wozfjzfpdysu962ysoxb.png',
         description: 'Freshly baked breads and pastries',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         name: 'Meat',
-        image: 'meat.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984281/DeliveryImg/categories/xo2i5dvqbx6flgzdzv3b.jpg',
         description: 'High-quality meat products',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -46,7 +46,7 @@ module.exports = {
       },
       {
         name: 'Seafood',
-        image: 'seafood.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984281/DeliveryImg/categories/xo2i5dvqbx6flgzdzv3b.jpg',
         description: 'Fresh seafood from the ocean',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         name: 'Snacks',
-        image: 'snacks.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984423/DeliveryImg/categories/n1coj2aftb0dsgm6yvvc.jpg',
         description: 'Tasty snacks for every occasion',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -62,7 +62,7 @@ module.exports = {
       },
       {
         name: 'Beverages',
-        image: 'beverages.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984454/DeliveryImg/categories/lultxpkhbihqjmdsdipf.jpg',
         description: 'Refreshing drinks and beverages',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -70,7 +70,7 @@ module.exports = {
       },
       {
         name: 'Condiments',
-        image: 'condiments.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984491/DeliveryImg/categories/zhrb8gmz1pc7pelenpxw.jpg',
         description: 'Sauces, spices, and other condiments',
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -78,7 +78,7 @@ module.exports = {
       },
       {
         name: 'Frozen Foods',
-        image: 'frozen_foods.jpg',
+        image: 'https://res.cloudinary.com/dofmijffe/image/upload/v1717984533/DeliveryImg/categories/horbepsbub9swekfznyl.jpg',
         description: 'Convenient and delicious frozen foods',
         createdAt: new Date(),
         updatedAt: new Date(),
