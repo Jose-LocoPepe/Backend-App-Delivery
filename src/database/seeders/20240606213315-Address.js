@@ -22,7 +22,7 @@ module.exports = {
         latitude: '19.432607',
         createdAt: new Date(),
         updatedAt: new Date(),
-        user_id: 4
+        user_id: 6
       },
       {
         name: 'Casa de Campo',
@@ -32,8 +32,18 @@ module.exports = {
         latitude: '19.432606',
         createdAt: new Date(),
         updatedAt: new Date(),
-        user_id: 4
-      }
+        user_id: 9
+      },
+      {
+        name: 'Apartamento',
+        street: '012 Avenida Residencial',
+        neighborhood: 'Residencial',
+        longitude: '-99.133211',
+        latitude: '19.432605',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        user_id: 9
+      },
     ], {});
   },
 
