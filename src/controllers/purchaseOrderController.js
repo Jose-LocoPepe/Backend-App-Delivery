@@ -38,20 +38,23 @@ const dispatchOrder = async (req = request, res = response) => {
 }
 
 // Define a function to get the base query configuration
-function getBaseQueryConfig(status) {
+function getBaseQueryConfig(status, addressId) {
     return {
         where: {
             status: status
         },
-        include: {
-            model: User,
-            as: "client",
-            attributes: ['name', 'lastName', 'phone'],
-            include: {
+        include: [
+            {
+                model: User,
+                as: "client",
+                attributes: ['name', 'lastName', 'phone'],
+            },
+            {
                 model: Address,
-                attributes: ['street']
-            }
-        }
+                as: "address",
+                attributes: ['street'],
+            },
+        ],
     };
 }
 

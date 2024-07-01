@@ -22,6 +22,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL
       },
+      addressId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       clientId: {
         allowNull: false,
         type: Sequelize.INTEGER,

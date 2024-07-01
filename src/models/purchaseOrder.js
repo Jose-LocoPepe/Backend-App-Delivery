@@ -6,6 +6,7 @@ class PurchaseOrder extends Model {
     static date;
     static status;
     static totalPrice;
+    static addressId;
     static clientId;
     static deliveryUserId;
 }
@@ -27,6 +28,10 @@ PurchaseOrder.init({
     totalPrice: {
         type: DataTypes.DECIMAL,
         allowNull: false
+    },
+    addressId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
     clientId: {
         type: DataTypes.INTEGER,

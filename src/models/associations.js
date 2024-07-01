@@ -5,7 +5,7 @@ const Category = require('./category');
 const User = require('./user');
 const Address = require('./address');
 const PurchaseOrder = require('./purchaseOrder');
-const OrderDetail = require('./orderDetail');
+const OrderDetails = require('./orderDetails');
 
 Product.hasMany(ProductImage, { foreignKey: 'productId', as: 'images' });
 ProductImage.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
@@ -26,9 +26,12 @@ PurchaseOrder.belongsTo(User, { foreignKey: 'deliveryUserId', as: 'deliveryUser'
 
 
 // Association for a purchase order that has many order details
-PurchaseOrder.hasMany(OrderDetail, { foreignKey: 'orderId'});
-OrderDetail.belongsTo(PurchaseOrder, { foreignKey: 'orderId'});
+PurchaseOrder.hasMany(OrderDetails, { foreignKey: 'orderId'});
+OrderDetails.belongsTo(PurchaseOrder, { foreignKey: 'orderId'});
 
 // Association for a product that has many order details
-Product.hasMany(OrderDetail, { foreignKey: 'productId'});
-OrderDetail.belongsTo(Product, { foreignKey: 'productId'});
+Product.hasMany(OrderDetails, { foreignKey: 'productId'});
+OrderDetails.belongsTo(Product, { foreignKey: 'productId'});
+
+
+PurchaseOrder.belongsTo(Address, { foreignKey: 'addressId', as: 'address' });
