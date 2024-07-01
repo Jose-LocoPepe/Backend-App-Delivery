@@ -64,4 +64,34 @@ const changePassword = async (req = request, res = response) => {
     }
 }
 
-module.exports = { getUsers, putUser,changePassword };
+const getDeliveryUsers = async (req = request, res = response) => {
+    try {
+        const users = await User.findAll({
+            where: {
+                rol_id: 2
+            }
+        });
+
+        // Check if users exist
+        if (users.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No se encontraron usuarios con el rol de repartidor"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: users
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Error al obtener los repartidores"
+        });
+    }
+}
+
+
+module.exports = { getUsers, putUser,changePassword, getDeliveryUsers};
