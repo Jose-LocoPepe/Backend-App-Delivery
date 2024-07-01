@@ -55,8 +55,8 @@ function getBaseQueryConfig(status) {
 
 const getPendingPurchaseOrders = async (req = request, res = response) => {
     try {
-        const { id } = req.params;
-        const user = await User.findOne({ where: { id: id } });
+        const { userId } = req.params;
+        const user = await User.findOne({ where: { id: userId } });
 
         if (!user) {
             return res.status(404).json({
@@ -107,8 +107,8 @@ const getPendingPurchaseOrders = async (req = request, res = response) => {
 
 const getDispatchedPurchaseOrders = async (req = request, res = response) => {
     try {
-        const { id } = req.params;
-        const user = await User.findOne({ where: { id: id } });
+        const { userId } = req.params;
+        const user = await User.findOne({ where: { id: userId } });
 
         if (!user) {
             return res.status(404).json({
@@ -158,8 +158,8 @@ const getDispatchedPurchaseOrders = async (req = request, res = response) => {
 
 const getDeliveredPurchaseOrders = async (req = request, res = response) => {
     try {
-        const { id } = req.params;
-        const user = await User.findOne({ where: { id: id } });
+        const { userId } = req.params;
+        const user = await User.findOne({ where: { id: userId } });
 
         if (!user) {
             return res.status(404).json({
@@ -209,8 +209,8 @@ const getDeliveredPurchaseOrders = async (req = request, res = response) => {
 
 const getOnTheWayPurchaseOrders = async (req = request, res = response) => {
     try {
-        const { id } = req.params;
-        const user = await User.findOne({ where: { id: id } });
+        const { userId } = req.params;
+        const user = await User.findOne({ where: { id: userId } });
 
         if (!user) {
             return res.status(404).json({
