@@ -13,4 +13,6 @@ router.get("/:userId/dispatched", OrderController.getDispatchedPurchaseOrders);
 router.get("/:userId/delivered", OrderController.getDeliveredPurchaseOrders);
 router.get("/:userId/on-the-way", OrderController.getOnTheWayPurchaseOrders);
 
+router.get("/:orderId/products", OrderController.getProductsByOrderId);
+
 module.exports = router;

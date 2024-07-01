@@ -2,7 +2,9 @@ const { request, response } = require("express");
 const PurchaseOrder = require("../models/purchaseOrder");
 const User = require("../models/user");
 const Address = require("../models/address");
-
+const Product = require("../models/product");
+const OrderDetails = require("../models/orderDetails");
+const ProductImage = require("../models/productsimage");
 
 const dispatchOrder = async (req = request, res = response) => {
     try {
@@ -258,10 +260,55 @@ const getOnTheWayPurchaseOrders = async (req = request, res = response) => {
     }
 }
 
+const getProductsByOrderId = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+
+        const orderDetails = await OrderDetails.findAll({
+            where: { orderId: orderId },
+            include: [{
+                model: Product,
+                required: true, // Ensures only OrderDetails with associated Products are returned
+                attributes: ['name', 'description', 'price'],
+                include: [{
+                    model: ProductImage,
+                    as: 'images',
+                    attributes: ['image']
+                }]
+            }]
+        });
+
+        // Extracting products from orderDetails
+        // const products = orderDetails.map(detail => detail.Product);
+        // return res.json({
+        //     success: true,
+        //     products
+        // });
+
+        // Extracting products and their quantities from orderDetails
+        const productsWithQuantities = orderDetails.map(detail => ({
+            ...detail.Product.get({ plain: true }), // Spread the product details
+            quantity: detail.quantity // Attach the quantity from OrderDetails
+        }));
+
+        return res.json({
+            success: true,
+            products: productsWithQuantities
+        });
+    } catch (error) {
+        console.error('Error fetching products by orderId:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+}
+
 module.exports = {
     dispatchOrder, 
     getPendingPurchaseOrders, 
     getDispatchedPurchaseOrders,
     getDeliveredPurchaseOrders,
-    getOnTheWayPurchaseOrders
+    getOnTheWayPurchaseOrders,
+    getProductsByOrderId
 }
