@@ -55,6 +55,28 @@ function getBaseQueryConfig(status) {
     };
 }
 
+const getOrdersBasedOnUserRole = async (userRole, userId, status) => {
+    let whereClause = {};
+
+    switch (userRole) {
+        case 1:
+            break;
+        case 2:
+            whereClause.deliveryUserId = userId;
+            break;
+        default:
+            whereClause.clientId = userId;
+            break;
+    }
+
+    const queryConfig = getBaseQueryConfig(status);
+    if (Object.keys(whereClause).length > 0) {
+        queryConfig.where = { ...queryConfig.where, ...whereClause };
+    }
+
+    return await PurchaseOrder.findAll(queryConfig);
+}
+
 const getPendingPurchaseOrders = async (req = request, res = response) => {
     try {
         const { userId } = req.params;
@@ -66,39 +88,12 @@ const getPendingPurchaseOrders = async (req = request, res = response) => {
                 message: "Usuario no encontrado"
             });
         }
+        const pendingOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"PENDIENTE");
 
-        if (user.rol_id === 1) {
-            const pendingOrders = await PurchaseOrder.findAll(getBaseQueryConfig("pending"));
-            return res.status(200).json({
-                success: true,
-                data: pendingOrders
-            });
-        } else if (user.rol_id === 2) {
-            const pendingOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("pending"),
-                where: {
-                    ...getBaseQueryConfig("pending").where,
-                    deliveryUserId: id
-                }
-            });
-    
-            return res.status(200).json({
-                success: true,
-                data: pendingOrders
-            });
-        } else {
-            const pendingOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("pending"),
-                where: {
-                    ...getBaseQueryConfig("pending").where,
-                    clientId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: pendingOrders
-            });
-        }
+        return res.status(200).json({
+            success: true,
+            data: pendingOrders
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -118,38 +113,11 @@ const getDispatchedPurchaseOrders = async (req = request, res = response) => {
                 message: "Usuario no encontrado"
             });
         }
-
-        if (user.rol_id === 1) {
-            const dispatchedOrders = await PurchaseOrder.findAll(getBaseQueryConfig("dispatched"));
-            return res.status(200).json({
-                success: true,
-                data: dispatchedOrders
-            });
-        } else if (user.rol_id === 2) {
-            const dispatchedOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("dispatched"),
-                where: {
-                    ...getBaseQueryConfig("dispatched").where,
-                    deliveryUserId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: dispatchedOrders
-            });
-        } else {
-            const dispatchedOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("dispatched"),
-                where: {
-                    ...getBaseQueryConfig("dispatched").where,
-                    clientId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: dispatchedOrders
-            });
-        }
+        const dispatchedOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"DESPACHADO");
+        return res.status(200).json({
+            success: true,
+            data: dispatchedOrders
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -169,38 +137,12 @@ const getDeliveredPurchaseOrders = async (req = request, res = response) => {
                 message: "Usuario no encontrado"
             });
         }
-
-        if (user.rol_id === 1) {
-            const deliveredOrders = await PurchaseOrder.findAll(getBaseQueryConfig("delivered"));
-            return res.status(200).json({
-                success: true,
-                data: deliveredOrders
-            });
-        } else if (user.rol_id === 2) {
-            const deliveredOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("delivered"),
-                where: {
-                    ...getBaseQueryConfig("delivered").where,
-                    deliveryUserId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: deliveredOrders
-            });
-        } else {
-            const deliveredOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("delivered"),
-                where: {
-                    ...getBaseQueryConfig("delivered").where,
-                    clientId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: deliveredOrders
-            });
-        }
+        
+        const deliveredOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"ENTREGADO");
+        return res.status(200).json({
+            success: true,
+            data: deliveredOrders
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -220,38 +162,12 @@ const getOnTheWayPurchaseOrders = async (req = request, res = response) => {
                 message: "Usuario no encontrado"
             });
         }
-
-        if (user.rol_id === 1) {
-            const onTheWayOrders = await PurchaseOrder.findAll(getBaseQueryConfig("onTheWay"));
-            return res.status(200).json({
-                success: true,
-                data: onTheWayOrders
-            });
-        } else if (user.rol_id === 2) {
-            const onTheWayOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("onTheWay"),
-                where: {
-                    ...getBaseQueryConfig("onTheWay").where,
-                    deliveryUserId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: onTheWayOrders
-            });
-        } else {
-            const onTheWayOrders = await PurchaseOrder.findAll({
-                ...getBaseQueryConfig("onTheWay"),
-                where: {
-                    ...getBaseQueryConfig("onTheWay").where,
-                    clientId: id
-                }
-            });
-            return res.status(200).json({
-                success: true,
-                data: onTheWayOrders
-            });
-        }
+        
+        const onTheWayOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"ENCAMINO");
+        return res.status(200).json({
+            success: true,
+            data: onTheWayOrders
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
