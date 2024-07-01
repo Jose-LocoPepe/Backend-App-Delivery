@@ -43,6 +43,9 @@ function getBaseQueryConfig(status, addressId) {
         where: {
             status: status
         },
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        },
         include: [
             {
                 model: User,
@@ -98,6 +101,13 @@ const getPendingPurchaseOrders = async (req = request, res = response) => {
         }
         const pendingOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"PENDIENTE");
 
+        if (pendingOrders.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No se encontraron órdenes de compra pendientes"
+            });
+        }
+
         return res.status(200).json({
             success: true,
             data: pendingOrders
@@ -122,6 +132,14 @@ const getDispatchedPurchaseOrders = async (req = request, res = response) => {
             });
         }
         const dispatchedOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"DESPACHADO");
+        
+        if (dispatchedOrders.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No se encontraron órdenes de compra despachadas"
+            });
+        }
+
         return res.status(200).json({
             success: true,
             data: dispatchedOrders
@@ -147,6 +165,14 @@ const getDeliveredPurchaseOrders = async (req = request, res = response) => {
         }
         
         const deliveredOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"ENTREGADO");
+        
+        if (deliveredOrders.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No se encontraron órdenes de compra entregadas"
+            });
+        }
+        
         return res.status(200).json({
             success: true,
             data: deliveredOrders
@@ -172,6 +198,14 @@ const getOnTheWayPurchaseOrders = async (req = request, res = response) => {
         }
         
         const onTheWayOrders = await getOrdersBasedOnUserRole(user.rol_id, user.id,"ENCAMINO");
+        
+        if (onTheWayOrders.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No se encontraron órdenes de compra en camino"
+            });
+        }
+
         return res.status(200).json({
             success: true,
             data: onTheWayOrders
