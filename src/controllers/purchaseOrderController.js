@@ -54,6 +54,11 @@ function getBaseQueryConfig(status, addressId) {
                 as: "address",
                 attributes: ['street'],
             },
+            {
+                model: User,
+                as: "deliveryUser",
+                attributes: ['name', 'lastName'],
+            },
         ],
     };
 }
