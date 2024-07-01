@@ -29,8 +29,8 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'Elsa',
-        lastName: 'Capunta',
+        name: 'Juan',
+        lastName: 'Urrutia',
         email: 't2@t2.cl',
         phone: '123456789',
         password: bcryptjs.hashSync('test2', salt),
@@ -90,7 +90,7 @@ module.exports = {
         phone: '555-6677',
         password: bcryptjs.hashSync('password4', salt),
         image: 'imagen8.png',
-        rol_id: 1,
+        rol_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -112,7 +112,7 @@ module.exports = {
         phone: '555-8899',
         password: bcryptjs.hashSync('password6', salt),
         image: 'imagen10.png',
-        rol_id: 1,
+        rol_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
