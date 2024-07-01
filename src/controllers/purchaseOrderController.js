@@ -269,7 +269,7 @@ const getProductsByOrderId = async (req, res) => {
             include: [{
                 model: Product,
                 required: true, // Ensures only OrderDetails with associated Products are returned
-                attributes: ['name', 'description', 'price'],
+                attributes: ['name'],
                 include: [{
                     model: ProductImage,
                     as: 'images',
