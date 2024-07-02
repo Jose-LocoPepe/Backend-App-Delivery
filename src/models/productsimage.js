@@ -2,6 +2,11 @@ const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
 class ProductImage extends Model {
+    static id;
+    static image;
+    static productId;
+    static createdAt;
+    static updatedAt;
     
 }
 

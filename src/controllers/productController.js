@@ -75,7 +75,38 @@ const createProduct = async (req = request, res = response) => {
         });
     }
 }
+const getProductByID = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findOne({ 
+            where: { id: id },
+            include: [{
+                model: ProductImage,
+                as: 'images',
+                required: true // Si quieres que la imagen sea obligatoria para que se devuelva el producto
+            }]
+        });
 
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            product: product
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+/*
 const getProductByID = async (req = request, res = response) => {
     try {
         const { id } = req.params;
@@ -94,7 +125,7 @@ const getProductByID = async (req = request, res = response) => {
             message: error.message
         });
     }
-}
+}*/
 // obtain a first image of a product
 const getFirstProductImage = async (req = request, res = response) => {
     try {
@@ -163,7 +194,14 @@ const updateProductImages = async (req = request, res = response) => {
 
 const getProducts = async (req = request, res = response) => {
     try {
-        const products = await Product.findAll({ where: { isActive: true } });
+        const products = await Product.findAll({ 
+            where: { isActive: true },
+            include: [{
+                model: ProductImage,
+                as: 'images',
+                required: true // Si quieres que la imagen sea obligatoria para que se devuelva el producto
+            }]
+         });
         
         return res.status(200).json({
             success: true,
