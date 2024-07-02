@@ -251,7 +251,7 @@ const getProductsByOrderId = async (req, res) => {
 
         return res.json({
             success: true,
-            products: productsWithQuantities
+            data: productsWithQuantities
         });
     } catch (error) {
         console.error('Error fetching products by orderId:', error);

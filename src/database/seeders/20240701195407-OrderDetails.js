@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         orderId: 1,
-        productId: 1,
+        productId: 2,
         quantity: 3,
         createdAt: new Date(),
         updatedAt: new Date()
