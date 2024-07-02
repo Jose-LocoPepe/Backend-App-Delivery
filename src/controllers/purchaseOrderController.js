@@ -20,7 +20,7 @@ const dispatchOrder = async (req = request, res = response) => {
         }
 
         order.deliveryUserId = deliveryUserId;
-        order.status = "dispatched";
+        order.status = "DESPACHADO";
 
         await order.save();
 
