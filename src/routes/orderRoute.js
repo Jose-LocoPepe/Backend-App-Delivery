@@ -6,7 +6,7 @@ const { validateFields } = require("../middlewares/validate-fields");
 
 const router = Router();
 
-router.put("/:orderId/dispatch", OrderController.dispatchOrder);
+router.patch("/:orderId/dispatch", OrderController.dispatchOrder);
 
 router.get("/:userId/pending", OrderController.getPendingPurchaseOrders);
 router.get("/:userId/dispatched", OrderController.getDispatchedPurchaseOrders);
