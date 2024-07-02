@@ -262,6 +262,43 @@ const getProductsByOrderId = async (req, res) => {
     }
 }
 
+const deliverOrder = async (req = request, res = response) => {
+    try {
+        const { orderId } = req.params;
+        const order = await PurchaseOrder.findOne({ where: { id: orderId } });
+
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Orden no encontrada"
+            });
+        }
+
+        // Assuming the order can only be delivered if it's currently dispatched
+        if (order.status !== "DESPACHADO") {
+            return res.status(400).json({
+                success: false,
+                message: "La orden no está en estado despachado"
+            });
+        }
+
+        order.status = "ENTREGADO";
+
+        await order.save();
+
+        return res.status(200).json({
+            success: true,
+            data: order,
+            message: "Orden entregada correctamente"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 module.exports = {
     dispatchOrder, 
     getPendingPurchaseOrders, 
