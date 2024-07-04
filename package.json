@@ -25,7 +25,8 @@
         "mysql2": "^3.10.0",
         "sequelize": "^6.37.3",
         "sequelize-cli": "^6.6.2",
-        "stripe": "^16.1.0"
+        "stripe": "^16.1.0",
+        "ws": "^8.18.0"
     },
     "devDependencies": {
         "@faker-js/faker": "^8.4.1"
