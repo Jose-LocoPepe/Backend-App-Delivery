@@ -8,6 +8,7 @@ class Address extends Model {
     static neighborhood;
     static longitude;
     static latitude;
+    static user_id;
 }
 
 Address.init({

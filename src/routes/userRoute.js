@@ -9,7 +9,8 @@ const AddressController = require("../controllers/addressController")
 //const UserController = require("../controllers/userController");
 
 // Middlewares
-
+const validateAdmin = require("../middlewares/validate-admin");
+const { validateJWT } = require("../middlewares/validate-jwt");
 const { validateFields } = require("../middlewares/validate-fields"); 
 const { putUser } = require("../controllers/userController");
 
@@ -56,6 +57,6 @@ router.post('/:id/address/create',[
 
 router.get('/:id/address/get',AddressController.getAddress);
 
-router.get('/delivery', UserController.getDeliveryUsers);
+router.get('/delivery', [validateJWT, validateAdmin], UserController.getDeliveryUsers);
 
 module.exports = router;

@@ -19,6 +19,22 @@ const dispatchOrder = async (req = request, res = response) => {
             });
         }
 
+        if (order.status !== "PENDIENTE") {
+            return res.status(400).json({
+                success: false,
+                message: "La orden no está en estado pendiente"
+            });
+        }
+
+        // Assuming the order can only be dispatched if a delivery user is assigned, and the user exists, and is a delivery user
+        const deliveryUser = await User.findOne({ where: { id: deliveryUserId, rol_id: 2 } });
+        if (!deliveryUser) {
+            return res.status(404).json({
+                success: false,
+                message: "Usuario repartidor no encontrado"
+            });
+        }
+
         order.deliveryUserId = deliveryUserId;
         order.status = "DESPACHADO";
 
@@ -38,7 +54,7 @@ const dispatchOrder = async (req = request, res = response) => {
 }
 
 // Define a function to get the base query configuration
-function getBaseQueryConfig(status, addressId) {
+function getBaseQueryConfig(status) {
     return {
         where: {
             status: status
@@ -236,6 +252,13 @@ const getProductsByOrderId = async (req, res) => {
             }]
         });
 
+        if (orderDetails.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No se encontraron productos para la orden"
+            });
+        }
+
         // Extracting products from orderDetails
         // const products = orderDetails.map(detail => detail.Product);
         // return res.json({
@@ -275,10 +298,10 @@ const deliverOrder = async (req = request, res = response) => {
         }
 
         // Assuming the order can only be delivered if it's currently dispatched
-        if (order.status !== "DESPACHADO") {
+        if (order.status !== "ENCAMINO") {
             return res.status(400).json({
                 success: false,
-                message: "La orden no está en estado despachado"
+                message: "La orden no está en estado en camino"
             });
         }
 
@@ -299,11 +322,51 @@ const deliverOrder = async (req = request, res = response) => {
     }
 }
 
+const startDelivery = async (req = request, res = response) => {
+    try {
+        const { orderId } = req.params;
+        const order = await PurchaseOrder.findOne({ where: { id: orderId } });
+
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Orden no encontrada"
+            });
+        }
+
+        // Assuming the order can only start delivery if it's currently dispatched
+        if (order.status !== "DESPACHADO") {
+            return res.status(400).json({
+                success: false,
+                message: "La orden no está en estado despachado para iniciar la entrega"
+            });
+        }
+
+        order.status = "ENCAMINO";
+
+        await order.save();
+
+        return res.status(200).json({
+            success: true,
+            data: order,
+            message: "Entrega de orden iniciada correctamente"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+
 module.exports = {
     dispatchOrder, 
     getPendingPurchaseOrders, 
     getDispatchedPurchaseOrders,
     getDeliveredPurchaseOrders,
     getOnTheWayPurchaseOrders,
-    getProductsByOrderId
+    getProductsByOrderId,
+    deliverOrder,
+    startDelivery
 }

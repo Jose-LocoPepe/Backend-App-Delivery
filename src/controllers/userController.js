@@ -69,6 +69,9 @@ const getDeliveryUsers = async (req = request, res = response) => {
         const users = await User.findAll({
             where: {
                 rol_id: 2
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'email', 'phone']
             }
         });
 

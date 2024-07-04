@@ -7,6 +7,7 @@
         static description;
         static price;
         static isActive;
+        static categoryId;
     }
 
     Product.init({
