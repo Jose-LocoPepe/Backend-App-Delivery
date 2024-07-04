@@ -4,6 +4,7 @@ const logger = require('morgan');
 const dbConnect = require('../database/connection');
 const fileUpload = require('express-fileupload');
 require('./associations'); // Asegúrate de que la ruta sea correcta
+const setupWebSocketServer = require('./websocketServer');
 
 
 const User = require('../models/user');
@@ -41,6 +42,8 @@ class Server {
         // Metodo para configurar las rutas
         this.routes();
 
+        // Configuración del servidor WebSocket
+        this.wss = setupWebSocketServer(this.server);
     }
 
     // Método para conectar con la base de datos
