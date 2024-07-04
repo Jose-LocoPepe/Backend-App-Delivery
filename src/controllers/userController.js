@@ -71,7 +71,7 @@ const getDeliveryUsers = async (req = request, res = response) => {
                 rol_id: 2
             },
             attributes: {
-                exclude: ['createdAt', 'updatedAt', 'email', 'phone']
+                exclude: ['createdAt', 'updatedAt', 'email', 'phone','rol_id']
             }
         });
 

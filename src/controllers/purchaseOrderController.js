@@ -60,7 +60,7 @@ function getBaseQueryConfig(status) {
             status: status
         },
         attributes: {
-            exclude: ['createdAt', 'updatedAt']
+            exclude: ['createdAt', 'updatedAt','addressId']
         },
         include: [
             {
