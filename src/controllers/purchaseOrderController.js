@@ -71,7 +71,7 @@ function getBaseQueryConfig(status) {
             {
                 model: Address,
                 as: "address",
-                attributes: ['street'],
+                attributes: ['street','latitude','longitude'],
             },
             {
                 model: User,
