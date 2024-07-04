@@ -1,32 +1,38 @@
 const { DataTypes, Model } = require('sequelize');
 const dbConnect = require('../database/connection');
 
-class ProductImage extends Model {
+class OrderDetails extends Model {
     static id;
-    static image;
+    static orderId;
     static productId;
-    static createdAt;
-    static updatedAt;
-    
+    static quantity;
 }
 
-ProductImage.init({
+OrderDetails.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    image: {
-        type: DataTypes.STRING,
-        allowNull: true
+    orderId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'PurchaseOrder',
+            key: 'id'
+        }
     },
     productId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Products', // Nombre de la tabla referenciada
+            model: 'Product',
             key: 'id'
         }
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -40,9 +46,8 @@ ProductImage.init({
     }
 }, {
     sequelize: dbConnect,
-    modelName: 'ProductImage',
+    modelName: 'OrderDetails',
     timestamps: true
 });
-ProductImage.ProductId = ProductImage.belongsTo(require ('./product'), {foreignKey: 'productId'});
 
-module.exports = ProductImage;
+module.exports = OrderDetails;

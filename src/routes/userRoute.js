@@ -1,8 +1,12 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const ProductController = require("../controllers/productController");
-const CategoryController = require("../controllers/categoryController");
 const UserController = require("../controllers/userController");
+const ProductController = require("../controllers/productController")
+const AddressController = require("../controllers/addressController")
+
+
+//Controllers
+//const UserController = require("../controllers/userController");
 
 // Middlewares
 
@@ -31,16 +35,27 @@ router.put('/:id', [
 ], UserController.putUser);
 
 
+router.put('/:id/password',[check('currentPassword', 'La contraseña actual es obligatoria').not().isEmpty(),
+    check('newPassword', 'La nueva contraseña es obligatoria').not().isEmpty(),
+    validateFields], UserController.changePassword);
+
+
 router.patch('/product/:id/name',ProductController.updateName);
-/*
-router.get('/getProducts',ProductController.getProducts);
-router.get('/getPictures',ProductController.getPictures);
-router.post('/deleteProduct', ProductController.deactivateProduct);
-router.post('/createProduct', ProductController.createProduct);
 
 
-router.get('/getCategory', CategoryController.getCategory);
-router.post('/createCategory', CategoryController.createCategory);
-router.post('/deleteCategory', CategoryController.deactivateCategory);*/
+
+// Rutas de dirección
+router.post('/:id/address/create',[
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('street', 'La calle es obligatoria').not().isEmpty(),
+    check('neighborhood', 'El barrio es obligatorio').not().isEmpty(),
+    check('longitude', 'La longitud es obligatoria').not().isEmpty(),
+    check('latitude', 'La latitud es obligatoria').not().isEmpty(),
+    validateFields
+],AddressController.createAddress);
+
+router.get('/:id/address/get',AddressController.getAddress);
+
+router.get('/delivery', UserController.getDeliveryUsers);
 
 module.exports = router;

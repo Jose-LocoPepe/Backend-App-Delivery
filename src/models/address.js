@@ -1,9 +1,6 @@
-/*
-id,user_id,adress,street,complement,reference
-*/
 const { DataTypes, Model } = require('sequelize');
-const dbConnect = require('../database/connection.js');
-
+const dbConnect = require('../database/connection');
+const User = require('./user');
 class Address extends Model {
     static id;
     static name;
@@ -11,7 +8,6 @@ class Address extends Model {
     static neighborhood;
     static longitude;
     static latitude;
-
 }
 
 Address.init({
@@ -50,13 +46,22 @@ Address.init({
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW
-    }
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Users', // Nombre de la tabla referenciada
+            key: 'id'
+        }
+    },
+    
 }, {
     sequelize: dbConnect,
     modelName: 'Address',
     timestamps: true
 });
+// Address.user_id = Address.belongsTo(require ('./user'), {foreignKey: 'user_id'});
+// Address.belongsTo(User, { foreignKey: 'userId' });
 
-// clave foranea
-Address.User = Address.belongsTo(require('./user'), { foreignKey: 'user_id' });
 module.exports = Address;

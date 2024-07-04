@@ -6,9 +6,12 @@ const { validateFields } = require("../middlewares/validate-fields");
 const { validateJWT } = require("../middlewares/validate-jwt");
 const validateAdmin = require("../middlewares/validate-admin");
 
-const { createProduct,updateProduct, getProductByID, getProducts,deactivateProduct, getPictures} = require("../controllers/productController");
+const { createProduct,getFirstProductImage,getProductsImages,updateProduct, getProductByID, getProducts,deactivateProduct, getPictures} = require("../controllers/productController");
 const router = Router();
 
+
+router.get('/getFirstProductImage/:id',[
+], getFirstProductImage);
 
 router.post('/create', [
     check('name', 'El nombre es requerido').not().isEmpty(),
@@ -26,6 +29,13 @@ router.put('/:id', [
     validateAdmin,
     validateFields
 ], updateProduct);
+
+router.get('/getImages/:id',[
+    validateJWT,
+    validateFields
+], getProductsImages);
+
+
 
 router.get('/get/:id',[
     validateJWT,

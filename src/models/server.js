@@ -11,6 +11,10 @@ const Rol = require('../models/rol');
 const Category= require('./category');
 const Product = require('./product');
 const ProductImage = require('./product');
+const Address = require('./address');
+const purchaseOrder = require('./purchaseOrder');
+const orderDetails = require('./orderDetails');
+
 
 class Server {
     constructor() {
@@ -24,7 +28,8 @@ class Server {
             rol: '/api/rol',
             upload: '/api/upload',
             category: '/api/category',
-            product: '/api/product'
+            product: '/api/product',
+            order: '/api/order',
         }
 
         // Método para conectar con la base de datos
@@ -48,6 +53,9 @@ class Server {
             await Category.sync({ force: false });
             await Product.sync({ force: false });
             await ProductImage.sync({ force: false });
+            await Address.sync({ force: false });
+            await purchaseOrder.sync({ force: false });
+            await orderDetails.sync({ force: false });
             console.log('Base de datos conectada correctamente');
         } catch (error) {
             console.error('Error al conectar con la base de datos', error);
@@ -81,6 +89,7 @@ class Server {
         this.app.use(this.paths.upload, require('../routes/uploadRoute'));
         this.app.use(this.paths.category, require('../routes/categoryRoute'));
         this.app.use(this.paths.product, require('../routes/productRoute'));
+        this.app.use(this.paths.order, require('../routes/orderRoute'));
     }
 
     listen() {
