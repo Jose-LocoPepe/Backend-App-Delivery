@@ -57,6 +57,6 @@ router.post('/:id/address/create',[
 
 router.get('/:id/address/get',AddressController.getAddress);
 
-router.get('/delivery', [validateJWT, validateAdmin], UserController.getDeliveryUsers);
-
+// router.get('/delivery', [validateJWT, validateAdmin], UserController.getDeliveryUsers);
+router.get('/delivery', UserController.getDeliveryUsers);
 module.exports = router;
